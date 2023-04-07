@@ -1,91 +1,93 @@
 # ArkSys-ISO
 
-ArkSys-ISO is an ArchISO (Arch Linux disk image) forked from [XeroLinux ISO](https://github.com/xerolinux/xero_iso).
+ArkSys-ISO is an [ArchISO](https://wiki.archlinux.org/title/Archiso) (Arch Linux live CD/USB ISO image) forked from [XeroLinux ISO](https://github.com/xerolinux/xero_iso).
 
-## How to build th ArchISO
-- Build ISO `sudo mkarchiso -v -w /work-dir -o /out-dir /archiso-dir/`.
-```sh
-sudo mkarchiso -v -w ./work -o ./ ./archsys-iso/
+## How to build ArkSys-ISO
+
+1. First you need to clone this repository (via https or ssh)
 ```
-The work dir can be in `/tmp/archiso-tmp`.
+git clone https://github.com/David7ce/arksys-iso.git
+```
 
+2. To build ISO you need to create a work directory and a output directory for the ISO. Then us `mkarchiso`:
+> The work directory can be in `/tmp/archiso-tmp`.
 
-- Rebuild ISO:
+```sh
+mkdir -p ~/archiso/work && cd ~/archiso
+
+sudo mkarchiso -v -w ./work -o ./ ./archsys-iso
+```
+
+- To rebuild ISO, just remove files of work directory in one of these ways:
     - Remove all content inside directory: `sudo rm -rf ./work/*`
     - Remove only files starting with "base": `sudo rm -v ./work/base._*`
     - Delete only the files in directory: `find ./work -maxdepth 1 -type f -delete`
 
-## Configure ArchISO
-- Generate a password with openssl: `openssl passwd -6`
-- Sign ISO:
+## TO DO
+- [ ] Sign the ISO image:
 ```sh
 sudo pacman -S gpg archiso
-
 gpg --full-generate-key
-gpg --export --armor > ~/Linux-distro-build/keyring.gpg
+gpg --export --armor >  ~/archiso/work/keyring.gpg
+cp ~/archiso/arksys-iso/keyring.gpg ~/archiso/arksys-iso/airootfs/etc/pacman.d/gnupg/archlinux*
 
-cp ~/Linux-distro-build/keyring.gpg ~/Linux-distro-build/archiso/airootfs/etc/pacman.d/gnupg/archlinux*
-
-cat << EOF >> ~/Linux-distro-build/archiso/pacman.conf 
+cat << EOF >> ~/archiso/arksys-iso/pacman.conf 
 [archlinux]
 SigLevel = Optional TrustAll
 Server = http://mirror.archlinux.org/$repo/os/$arch
 EOF
 
-sudo ~/Linux-distro-build/archiso/mkarchiso -v releng/
+sudo ~/archiso/arksys-iso/mkarchiso -v releng/
 gpg --detach-sign --armor out/archlinux-x86_64.iso
 ```
-
-
-## TODO
-- [ ] Sign the ISO image
-- [ ] Add Calamares to Archiso
-    - [ ] Add local repositories
-    - [ ] Build Calamares installer
+- [ ] Build own config Calamares installer and the repository from local
 
 ## DONE
 - Add sudoers.d
-- Add `sddm.conf.d/kde_settings.conf`
-- Login manager for SDDM: `ln -s /usr/lib/systemd/system/sddm.service ~/Linux-distro-build/archiso/archlive/airootfs/etc/systemd/system/display-manager.service`
-- Change autologin `~/Linux-distro-build/archiso/archlive/airootfs/etc/systemd/system/getty@tty1.service.d/autologin.conf`. You can modify this file to change the auto login user:
-```
+- Login manager for SDDM: `ln -s /usr/lib/systemd/system/sddm.service ~/archiso/arksys-iso/airootfs/etc/systemd/system/display-manager.service`
+- Change autologin `~/archiso/arksys-iso/airootfs/etc/systemd/system/getty@tty1.service.d/autologin.conf`. You can modify this file to change the auto login user:
+```sh
 [Service]
 ExecStart=
 ExecStart=-/sbin/agetty --autologin username --noclear %I 38400 linux
 ```
-
-- To create a user which will be available in the live environment, you must manually edit inside `airootfs/etc/`:
+- To create a user which will be available in the live environment, you must manually edit inside `~/archiso/arksys-iso/airootfs/etc/shadow`:
     - passwd
     - shadow
     - group
     - gshadow
-- Add password (123) with `openssl passwd -6`: $6$8IVL1j2vTO8C8fX/$J2nWQZt./oqF5jGDcHlo4FxSrooBwuhG1aITc/.yZiTt9I79TKyGazHsgjWjbGbky1PgUenzX2MYC1nRrQA5L1
+- Add password with `openssl passwd -6` and copy to airootfs/shadow/shadow.
+```sh
+openssl passwd -6
+Password:  # Type password then copy the output (106 characters)
+```
 - Add SSDM theme:
-    - Add theme`cp /usr/share/sddm/ ~/Linux-distro-build/archiso/archlive/airootfs/usr/share/sddm/themes/breeze`
-    - Config SDDM `~/Linux-distro-build/archiso/archlive/airootfs/etc/sddm.conf`
-- Edit shadow and add password
+    - Add theme`cp /usr/share/sddm/ ~/archiso/arksys-iso/airootfs/usr/share/sddm/themes/breeze`
+    - Config SDDM `~/archiso/arksys-iso/airootfs/etc/sddm.conf`
 
-## Changes
-## Remove:
--  ./airootfs/usr/share/grub/themes/XeroKDE
--  ./airootfs/usr/share/sddm/themes/XeroDark
+## Changes from [XeroLinux ISO](https://github.com/xerolinux/xero_iso/tree/main/Xero)
 
-## To edit
--  ./airootfs/etc/lightdm
--  ./airootfs/etc/mkinitcpio.d/arksys
--  ./airootfs/etc/sddm.conf
--  ./airootfs/efiboot/loader/entries/archiso-x86_64-linux.conf
+- Edited:
+    - ./packages.x86_64
 
-## Edited
-- ./packages.x86_64
+- Removed:
+    - ./airootfs/usr/share/grub/themes/XeroKDE
+    - ./airootfs/usr/share/sddm/themes/XeroDark
 
+- To edit:
+    - ./airootfs/etc/lightdm
+    - ./airootfs/etc/mkinitcpio.d/arksys
+    - ./airootfs/etc/sddm.conf
+    - ./airootfs/efiboot/loader/entries/archiso-x86_64-linux.conf
+
+---
 
 ## Tree of directories and files to edit
 ```
 ./
 ├── airootfs/
 │   ├── etc/
-│   │   ├── calamaresv
+│   │   ├── calamares/
 │   │   │   └── settings.conf
 │   │   ├── gshadow
 │   │   ├── hostname
@@ -137,6 +139,5 @@ ExecStart=-/sbin/agetty --autologin username --noclear %I 38400 linux
 ├── profiledef.sh
 ├── syslinux/
 │   └── splash.png
-├── tree-edit.txt
-└── TODO.md
+└── README.md
 ```
