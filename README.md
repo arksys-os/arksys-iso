@@ -43,18 +43,6 @@ gpg --detach-sign --armor out/archlinux-x86_64.iso
     - [ ] Add local repositories
     - [ ] Build Calamares installer
 
-## Errors
-```sh
-error: failed to commit transaction (conflicting files)
-filesystem: /home/archie/Linux-distro-build/archiso/work/x86_64/airootfs/usr/share/pixmaps/archlinux-logo.png exists in filesystem
-filesystem: /home/archie/Linux-distro-build/archiso/work/x86_64/airootfs/usr/share/pixmaps/archlinux-logo.svg exists in filesystem
-sddm: /home/archie/Linux-distro-build/archiso/work/x86_64/airootfs/usr/share/sddm/faces/.face.icon exists in filesystem
-sddm: /home/archie/Linux-distro-build/archiso/work/x86_64/airootfs/usr/share/sddm/faces/root.face.icon exists in filesystem
-Errors occurred, no packages were upgraded.
-==> ERROR: Failed to install packages to new root
-```
-
-
 ## DONE
 - Add sudoers.d
 - Add `sddm.conf.d/kde_settings.conf`
@@ -93,6 +81,7 @@ ExecStart=-/sbin/agetty --autologin username --noclear %I 38400 linux
 
 
 ## Tree of directories and files to edit
+```
 ./
 ├── airootfs/
 │   ├── etc/
@@ -150,3 +139,4 @@ ExecStart=-/sbin/agetty --autologin username --noclear %I 38400 linux
 │   └── splash.png
 ├── tree-edit.txt
 └── TODO.md
+```
