@@ -63,11 +63,11 @@ cmake -DCMAKE_BUILD_TYPE=Debug .. # cmake ..
 make
 ```
 
-- B. Use a custom calamares configuration like [calamares-xerolinux](https://github.com/xerolinux/calamares-cfg), edit with ouwn taste and build.
-To build the package use `makepkg`
+- B. Use a custom calamares configuration like [calamares-xerolinux](https://github.com/xerolinux/calamares-cfg), edit with ouwn taste and build. To build the package use `makepkg`
 ```sh
 makepkg
 ```
+> You can build and install the package with `makepg -si`
 
 This will generate a compressed package `pkgname-pkgver-arch.pkg.tar.zst` that you can install with pacman or add it to your database of packages.
 ```sh
@@ -145,15 +145,13 @@ If you are going to stay in a version of calamares is easier just import calamar
 
 ```sh
 # copy calamares (branding/, modules/, settigns.conf)
-cp ~/ldb/calamares/etc/calamares/ ~/ldb/arksys-iso./airootfs/etc/
+cp -r ~/ldb/calamares-cfg/etc/ ~/ldb/arksys-iso/airootfs/etc/
 
-cd ~/ldb/calamares/build/
+cp -r ~/ldb/calamares/build/libcalamaresui.so.3.3.0 ~/ldb/airootfs/usr/lib/calamares
+cp -r ~/ldb/calamares/build/src/modules/ ~/ldb/arksys-iso/airootfs/usr/lib/calamares
 
-cp libcalamaresui.so.3.3.0 ~/ldb/airootfs/usr/lib/calamares
-cp src/modules/ ~/ldb/arksys-iso/airootfs/usr/lib/calamares
-
-cp -r src/branding/ ~/ldb/arksys-iso/airootfs/usr/share/calamares
-cp -r src/qml/ ~/ldb/arksys-iso/airootfs/usr/share/calamares
+cp -r ~/ldb/calamares/build/src/branding/ ~/ldb/arksys-iso/airootfs/usr/share/calamares
+cp -r ~/ldb/calamares/build/src/qml/ ~/ldb/arksys-iso/airootfs/usr/share/calamares
 
 # cp -r src/calamares ~/ldb/arksys-iso/airootfs/usr/share/
 
@@ -181,11 +179,11 @@ EOF
 ---
 
 ## Errors
-- Can't install calamares from AUR, dependecy error
+- Can't install calamares from AUR, dependecy error.
 
 ## TO DO
-- [ ] Build config Calamares installer
-- [ ] Install Calamares on archiso
+- [ ] Configure Calamares installer and build
+- [ ] Install Calamares on archiso (with pacman or importing files)
 - [ ] Sign the ISO image:
 ```sh
 sudo pacman -S gpg archiso
