@@ -1,29 +1,191 @@
 # ArkSys-ISO
 
-ArkSys-ISO is an [ArchISO](https://wiki.archlinux.org/title/Archiso) (Arch Linux live CD/USB ISO image) forked from [XeroLinux ISO](https://github.com/xerolinux/xero_iso).
+ArkSys-ISO is an [ArchISO](https://wiki.archlinux.org/title/Archiso) profile to generate a disk ISO image. ArkSys-ISO is similar to [XeroLinux-ISO](https://github.com/xerolinux/xero_iso), a disk image with Arch Linux, KDE and Calamares installer to install the system in a graphical and easy way.
 
 ## How to build ArkSys-ISO
 
-1. First you need to clone this repository (via https or ssh)
+0. Install archiso tool with pacman, necessary to build an Arch Linux live ISO image.
+```sh
+sudo pacman -S archiso
+```
+
+1. Download arksys with git
 ```
 git clone https://github.com/David7ce/arksys-iso.git
 ```
 
-2. To build ISO you need to create a work directory and a output directory for the ISO. Then us `mkarchiso`:
-> The work directory can be in `/tmp/archiso-tmp`.
+> If you want to build a basic Arch Linux system, copy the archiso basic profile `cp -r /usr/share/archiso/configs/releng/ archlive` and follow [archiso documentation](https://wiki.archlinux.org/title/Archiso).
 
+2. To build the ISO you need to create a work directory and an output directory for the ISO. Then us `mkarchiso` and do one of these:
 ```sh
-mkdir -p ~/archiso/work && cd ~/archiso
-
-sudo mkarchiso -v -w ./work -o ./ ./archsys-iso
+# sudo mkarchiso -v -w  ~/Linux-distro-build/work -o ./ ./arksys-iso
+# sudo mkarchiso -v -w  /tmp/archiso-tmp ./arksys-iso
 ```
+> Tip: If memory allows, it is preferred to place the working directory on tmpfs (/tmp/archiso-tmp)
 
-- To rebuild ISO, just remove files of work directory in one of these ways:
+X. To rebuild ISO, just remove files of work directory in one of these ways:
     - Remove all content inside directory: `sudo rm -rf ./work/*`
     - Remove only files starting with "base": `sudo rm -v ./work/base._*`
     - Delete only the files in directory: `find ./work -maxdepth 1 -type f -delete`
 
+## Calamares installer
+Calamares installer is a system installer, it is necessary if you want to install the OS permanently, because archiso is a live environment that is stored on the RAM.
+
+### Configure and build Calamares
+There are two options:
+
+- A. Download calamares from GitHub, configure and build.
+
+To configure the app you need the clone the github repo.
+```sh
+git clone https://github.com/calamares/calamares.git
+```
+
+After that you can configure the appareance, the packages to install, the partitions, etc. inside calamares folder:
+- ./src/branding/distroname
+- ./src/modules/*.conf
+- ./settings.conf
+
+```
+./  # calamares directory
+├── src/
+|   ├── branding/
+|   |   └── distroname/
+|   └── modules/
+|       └── *.conf
+└── settings.conf
+```
+
+Once you have configured it you can build the app inside build directory.
+```sh
+mkdir calamares/build && cd calamares/build
+cmake -DCMAKE_BUILD_TYPE=Debug .. # cmake ..
+make
+```
+
+- B. Use a custom calamares configuration like [calamares-xerolinux](https://github.com/xerolinux/calamares-cfg), edit with ouwn taste and build.
+To build the package use `makepkg`
+```sh
+makepkg
+```
+
+This will generate a compressed package `pkgname-pkgver-arch.pkg.tar.zst` that you can install with pacman or add it to your database of packages.
+```sh
+sudo pacman -U calamares-cfg-*.pkg.tar.zst
+```
+
+### How install Calamares
+Calamares can be installed using pacman from a repository (local or remote) or importing the necessary files in the system.
+
+#### A. Calamares installation with pacman
+Calamares is not in the Arch repo, so you need to have your own repositories and configure the mirrorlist, the keys and the database. This better is beter if you plan on updating Calamares frequently.
+
+To download the package with pacman you can use an online or local repository:
+
+- To use an **online repo** configure pacman.conf and add the repository of your calamares-installer package:
+```
+# XeroLinux Repository
+#[valen_repo]
+#SigLevel = Never
+#Server = https://keyaedisa.github.io/$repo/$arch
+```
+And add the package name to `packages.x86_64`.
+
+- To use a **local repo** you need to generate a database. The database is a tar file with the extension .db or .files followed by an archive extension of .tar, .tar.gz, .tar.bz2, .tar.xz, .tar.zst, .tar.Z.
+
+```sh
+# add a package to the database
+repo-add /path/to/repo.db.tar.gz /path/to/package-1.0-1-x86_64.pkg.tar.zst
+
+# add all packages in that path to the database
+repo-add /path/to/repo.db.tar.gz /path/to/*.pkg.tar.zst
+```
+
+Use a text editor and add the name of the package (`package-1.0-1-x86_64.pkg.tar.zst`) to `packages.x86_64`. For example with the package `calamares-arksys-1-x86_64.pkg.tar.zst` add calamares-arksys to the list of packages.
+
+Then add the database to the pacman.conf
+```
+# Local repo (packages in my system)
+#[my_repo]
+#SigLevel = Optional TrustAll
+#Server = file:////home/username/arch-repo/pkgname-pkgver-arch.pkg.tar.zst
+```
+
+#### B. Calamares installation importing libs and configuration
+If you are going to stay in a version of calamares is easier just import calamares. To do that just need to copy these files and dirs into airootfs/ of the archISO:
+```sh
+./ # calamares directory
+└── airootfs/
+    ├── etc/
+    │   └── calamares/
+    │       ├── branding/
+    │       ├── modules/
+    │       └── settings.conf
+    └── usr/
+        ├── lib/
+        │   ├── calamares/
+        │   │     ├── modules/
+        │   │     │   └── default/
+        │   │     └── libcalamares.so
+        │   ├── libcalamares.so -> libcalamares.so.3.3.0
+        │   ├── libcalamares.so.3.3 -> libcalamares.so.3.3.0
+        │   ├── libcalamares.so.3.3.0
+        │   └── libcalamaresui.so -> libcalamares.so.3.3.0
+        └── share/
+            ├── applications/
+            │    └── calamares.desktop
+            └── calamares/
+               ├── branding/
+               │   └── default/
+               └── qml/
+                   ├── calamares/
+                   └── slideshow/
+```
+> There is no /usr/bin/calamares /usr/share/calamares/modules
+
+```sh
+# copy calamares (branding/, modules/, settigns.conf)
+cp ~/ldb/calamares/etc/calamares/ ~/ldb/arksys-iso./airootfs/etc/
+
+cd ~/ldb/calamares/build/
+
+cp libcalamaresui.so.3.3.0 ~/ldb/airootfs/usr/lib/calamares
+cp src/modules/ ~/ldb/arksys-iso/airootfs/usr/lib/calamares
+
+cp -r src/branding/ ~/ldb/arksys-iso/airootfs/usr/share/calamares
+cp -r src/qml/ ~/ldb/arksys-iso/airootfs/usr/share/calamares
+
+# cp -r src/calamares ~/ldb/arksys-iso/airootfs/usr/share/
+
+cat << EOF >> ~/ldb/arksys-iso./airootfs/usr/share/applications/calamares.desktop
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Install System
+GenericName=System Installer
+Comment=Calamares — System Installer
+Keywords=calamares;system;installer;
+TryExec=calamares
+Exec=sh -c "pkexec calamares"
+
+Categories=Qt;System;
+Icon=calamares
+Terminal=false
+SingleMainWindow=true
+StartupNotify=true
+X-AppStream-Ignore=true
+EOF
+
+```
+
+---
+
+## Errors
+- Can't install calamares from AUR, dependecy error
+
 ## TO DO
+- [ ] Build config Calamares installer
+- [ ] Install Calamares on archiso
 - [ ] Sign the ISO image:
 ```sh
 sudo pacman -S gpg archiso
@@ -31,7 +193,7 @@ gpg --full-generate-key
 gpg --export --armor >  ~/archiso/work/keyring.gpg
 cp ~/archiso/arksys-iso/keyring.gpg ~/archiso/arksys-iso/airootfs/etc/pacman.d/gnupg/archlinux*
 
-cat << EOF >> ~/archiso/arksys-iso/pacman.conf 
+cat << EOF >> ~/archiso/arksys-iso/pacman.conf
 [archlinux]
 SigLevel = Optional TrustAll
 Server = http://mirror.archlinux.org/$repo/os/$arch
@@ -40,7 +202,6 @@ EOF
 sudo ~/archiso/arksys-iso/mkarchiso -v releng/
 gpg --detach-sign --armor out/archlinux-x86_64.iso
 ```
-- [ ] Build own config Calamares installer and the repository from local
 
 ## DONE
 - Add sudoers.d
@@ -69,11 +230,9 @@ Password:  # Type password then copy the output (106 characters)
 
 - Edited:
     - ./packages.x86_64
-
 - Removed:
     - ./airootfs/usr/share/grub/themes/XeroKDE
     - ./airootfs/usr/share/sddm/themes/XeroDark
-
 - To edit:
     - ./airootfs/etc/lightdm
     - ./airootfs/etc/mkinitcpio.d/arksys
@@ -82,7 +241,7 @@ Password:  # Type password then copy the output (106 characters)
 
 ---
 
-## Tree of directories and files to edit
+## Tree of archiso (important files)
 ```
 ./
 ├── airootfs/

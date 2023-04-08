@@ -145,12 +145,12 @@ logrotate
 #######################################################
 
 ###  To-Build (Xerolinux repository)
-abs
-calamares-app
-calamares-cfg
-xero-fix-scripts
-xerolinux-mirrorlist
-xerowelcome
+#abs
+#calamares-app
+#calamares-cfg
+#xerolinux-mirrorlist
+#xero-fix-scripts
+#xerowelcome
 
 ### Calamares-installer building
 boost-libs
@@ -162,12 +162,20 @@ ki18n
 kiconthemes
 kio
 kpmcore
+icu
+libpwquality
 mkinitcpio-openswap
 polkit-qt5
 solid
 xmlto
 yaml-cpp
 
+#efibootmgr
+#hwinfo
+#plasma-framework
+#qt5-svg
+#qt5-xmlpatterns
+#squashfs-tools
 
 #######################################################
 ###                 DRIVERS & LIBS                  ###
