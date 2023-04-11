@@ -141,10 +141,10 @@ logrotate
 
 
 #######################################################
-###               CALAMARES XERO PACKAGES           ###
+###             CALAMARES INSTALLER PACKAGES        ###
 #######################################################
 
-###  To-Build (Xerolinux repository)
+###  Calamares-installer (XeroLinux)
 #abs
 #calamares-app
 #calamares-cfg
@@ -152,7 +152,11 @@ logrotate
 #xero-fix-scripts
 #xerowelcome
 
-### Calamares-installer building
+### Calamares-installer (ArkSys)
+#calamares-arksys-app
+#calamares-arksys-config
+
+### Calamares-installer dependencies
 boost-libs
 ckbcomp
 gtk-update-icon-cache
@@ -169,7 +173,6 @@ polkit-qt5
 solid
 xmlto
 yaml-cpp
-
 #efibootmgr
 #hwinfo
 #plasma-framework
