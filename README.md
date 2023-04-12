@@ -23,7 +23,7 @@ git clone https://github.com/David7ce/arksys-iso.git
 ```
 > Tip: If memory allows, it is preferred to place the working directory on tmpfs (/tmp/archiso-tmp)
 
-X. To rebuild ISO, just remove files of work directory in one of these ways:
+- To rebuild ISO, just remove files of work directory in one of these ways:
     - Remove all content inside directory: `sudo rm -rf ./work/*`
     - Remove only files starting with "base": `sudo rm -v ./work/base._*`
     - Delete only the files in directory: `find ./work -maxdepth 1 -type f -delete`
@@ -77,7 +77,7 @@ sudo pacman -U calamares-cfg-*.pkg.tar.zst
 ### How install Calamares
 Calamares can be installed using pacman from a repository (local or remote) or importing the necessary files in the system.
 
-#### A. Calamares installation with pacman
+#### A. Calamares installation with pacman (recommended)
 Calamares is not in the Arch repo, so you need to have your own repositories and configure the mirrorlist, the keys and the database. This better is beter if you plan on updating Calamares frequently.
 
 To download the package with pacman you can use an online or local repository:
@@ -111,8 +111,10 @@ Then add the database to the pacman.conf
 #Server = file:////home/username/arch-repo/pkgname-pkgver-arch.pkg.tar.zst
 ```
 
-#### B. Calamares installation importing libs and configuration
+#### B. Calamares installation importing libs and configuration (not recommended)
 If you are going to stay in a version of calamares is easier just import calamares. To do that just need to copy these files and dirs into airootfs/ of the archISO:
+> There is no /usr/bin/calamares /usr/share/calamares/modules
+
 ```sh
 ./ # calamares directory
 └── airootfs/
@@ -141,7 +143,6 @@ If you are going to stay in a version of calamares is easier just import calamar
                    ├── calamares/
                    └── slideshow/
 ```
-> There is no /usr/bin/calamares /usr/share/calamares/modules
 
 ```sh
 # copy calamares (branding/, modules/, settigns.conf)
@@ -173,71 +174,7 @@ SingleMainWindow=true
 StartupNotify=true
 X-AppStream-Ignore=true
 EOF
-
 ```
-
----
-
-## Errors
-- Can't install calamares from AUR, dependecy error.
-
-## TO DO
-- [ ] Configure Calamares installer and build
-- [ ] Install Calamares on archiso (with pacman or importing files)
-- [ ] Sign the ISO image:
-```sh
-sudo pacman -S gpg archiso
-gpg --full-generate-key
-gpg --export --armor >  ~/archiso/work/keyring.gpg
-cp ~/archiso/arksys-iso/keyring.gpg ~/archiso/arksys-iso/airootfs/etc/pacman.d/gnupg/archlinux*
-
-cat << EOF >> ~/archiso/arksys-iso/pacman.conf
-[archlinux]
-SigLevel = Optional TrustAll
-Server = http://mirror.archlinux.org/$repo/os/$arch
-EOF
-
-sudo ~/archiso/arksys-iso/mkarchiso -v releng/
-gpg --detach-sign --armor out/archlinux-x86_64.iso
-```
-
-## DONE
-- Add sudoers.d
-- Login manager for SDDM: `ln -s /usr/lib/systemd/system/sddm.service ~/archiso/arksys-iso/airootfs/etc/systemd/system/display-manager.service`
-- Change autologin `~/archiso/arksys-iso/airootfs/etc/systemd/system/getty@tty1.service.d/autologin.conf`. You can modify this file to change the auto login user:
-```sh
-[Service]
-ExecStart=
-ExecStart=-/sbin/agetty --autologin username --noclear %I 38400 linux
-```
-- To create a user which will be available in the live environment, you must manually edit inside `~/archiso/arksys-iso/airootfs/etc/shadow`:
-    - passwd
-    - shadow
-    - group
-    - gshadow
-- Add password with `openssl passwd -6` and copy to airootfs/shadow/shadow.
-```sh
-openssl passwd -6
-Password:  # Type password then copy the output (106 characters)
-```
-- Add SSDM theme:
-    - Add theme`cp /usr/share/sddm/ ~/archiso/arksys-iso/airootfs/usr/share/sddm/themes/breeze`
-    - Config SDDM `~/archiso/arksys-iso/airootfs/etc/sddm.conf`
-
-## Changes from [XeroLinux ISO](https://github.com/xerolinux/xero_iso/tree/main/Xero)
-
-- Edited:
-    - ./packages.x86_64
-- Removed:
-    - ./airootfs/usr/share/grub/themes/XeroKDE
-    - ./airootfs/usr/share/sddm/themes/XeroDark
-- To edit:
-    - ./airootfs/etc/lightdm
-    - ./airootfs/etc/mkinitcpio.d/arksys
-    - ./airootfs/etc/sddm.conf
-    - ./airootfs/efiboot/loader/entries/archiso-x86_64-linux.conf
-
----
 
 ## Tree of archiso (important files)
 ```
@@ -298,3 +235,65 @@ Password:  # Type password then copy the output (106 characters)
 │   └── splash.png
 └── README.md
 ```
+
+
+<!--
+## Errors
+- Can't install calamares from AUR, dependecy error.
+
+## TO DO
+- [ ] Configure Calamares installer and build
+- [ ] Install Calamares on archiso (with pacman or importing files)
+- [ ] Sign the ISO image:
+```sh
+sudo pacman -S gpg archiso
+gpg --full-generate-key
+gpg --export --armor >  ~/archiso/work/keyring.gpg
+cp ~/archiso/arksys-iso/keyring.gpg ~/archiso/arksys-iso/airootfs/etc/pacman.d/gnupg/archlinux*
+
+cat << EOF >> ~/archiso/arksys-iso/pacman.conf
+[archlinux]
+SigLevel = Optional TrustAll
+Server = http://mirror.archlinux.org/$repo/os/$arch
+EOF
+
+sudo ~/archiso/arksys-iso/mkarchiso -v releng/
+gpg --detach-sign --armor out/archlinux-x86_64.iso
+```
+
+## DONE
+- Add sudoers.d
+- Login manager for SDDM: `ln -s /usr/lib/systemd/system/sddm.service ~/archiso/arksys-iso/airootfs/etc/systemd/system/display-manager.service`
+- Change autologin `~/archiso/arksys-iso/airootfs/etc/systemd/system/getty@tty1.service.d/autologin.conf`. You can modify this file to change the auto login user:
+```sh
+[Service]
+ExecStart=
+ExecStart=-/sbin/agetty --autologin username --noclear %I 38400 linux
+```
+- To create a user which will be available in the live environment, you must manually edit inside `~/archiso/arksys-iso/airootfs/etc/shadow`:
+    - passwd
+    - shadow
+    - group
+    - gshadow
+- Add password with `openssl passwd -6` and copy to airootfs/shadow/shadow.
+```sh
+openssl passwd -6
+Password:  # Type password then copy the output (106 characters)
+```
+- Add SSDM theme:
+    - Add theme`cp /usr/share/sddm/ ~/archiso/arksys-iso/airootfs/usr/share/sddm/themes/breeze`
+    - Config SDDM `~/archiso/arksys-iso/airootfs/etc/sddm.conf`
+
+## Changes from [XeroLinux ISO](https://github.com/xerolinux/xero_iso/tree/main/Xero)
+
+- Edited:
+    - ./packages.x86_64
+- Removed:
+    - ./airootfs/usr/share/grub/themes/XeroKDE
+    - ./airootfs/usr/share/sddm/themes/XeroDark
+- To edit:
+    - ./airootfs/etc/lightdm
+    - ./airootfs/etc/mkinitcpio.d/arksys
+    - ./airootfs/etc/sddm.conf
+    - ./airootfs/efiboot/loader/entries/archiso-x86_64-linux.conf
+-->
