@@ -41,11 +41,7 @@ To configure the app you need the clone the github repo.
 git clone https://github.com/calamares/calamares.git
 ```
 
-After that you can configure the appareance, the packages to install, the partitions, etc. inside calamares folder:
-- ./src/branding/distroname
-- ./src/modules/*.conf
-- ./settings.conf
-
+After that you can configure the appareance, the packages to install, the partitions, etc. inside calamares folder. You can use tree command like, `tree ./*.conf`
 ```
 ./  # calamares directory
 ├── src/
@@ -111,9 +107,10 @@ Then add the database to the pacman.conf
 #Server = file:////home/username/arch-repo/pkgname-pkgver-arch.pkg.tar.zst
 ```
 
-#### B. Calamares installation importing libs and configuration (not recommended)
-If you are going to stay in a version of calamares is easier just import calamares. To do that just need to copy these files and dirs into airootfs/ of the archISO:
-> There is no /usr/bin/calamares /usr/share/calamares/modules
+#### B. Calamares installation importing files (not recommended)
+If you are going to stay in a version of calamares is easier just to import calamares files (libs & configuration). To do that just need to copy these files with the same dir structure airootfs/ of the archISO:
+
+> There is no /usr/bin/calamares and /usr/share/calamares/modules
 
 ```sh
 ./ # calamares directory
@@ -145,7 +142,7 @@ If you are going to stay in a version of calamares is easier just import calamar
 ```
 
 ```sh
-# copy calamares (branding/, modules/, settigns.conf)
+# copy calamares (branding/ modules/ settigns.conf)
 cp -r ~/ldb/calamares-cfg/etc/ ~/ldb/arksys-iso/airootfs/etc/
 
 cp -r ~/ldb/calamares/build/libcalamaresui.so.3.3.0 ~/ldb/airootfs/usr/lib/calamares
@@ -154,8 +151,7 @@ cp -r ~/ldb/calamares/build/src/modules/ ~/ldb/arksys-iso/airootfs/usr/lib/calam
 cp -r ~/ldb/calamares/build/src/branding/ ~/ldb/arksys-iso/airootfs/usr/share/calamares
 cp -r ~/ldb/calamares/build/src/qml/ ~/ldb/arksys-iso/airootfs/usr/share/calamares
 
-# cp -r src/calamares ~/ldb/arksys-iso/airootfs/usr/share/
-
+# create desktop icon
 cat << EOF >> ~/ldb/arksys-iso./airootfs/usr/share/applications/calamares.desktop
 [Desktop Entry]
 Type=Application
@@ -238,12 +234,9 @@ EOF
 
 
 <!--
-## Errors
-- Can't install calamares from AUR, dependecy error.
-
 ## TO DO
 - [ ] Configure Calamares installer and build
-- [ ] Install Calamares on archiso (with pacman or importing files)
+- [ ] Install Calamares on archiso with pacman (local or online)
 - [ ] Sign the ISO image:
 ```sh
 sudo pacman -S gpg archiso
@@ -280,20 +273,4 @@ ExecStart=-/sbin/agetty --autologin username --noclear %I 38400 linux
 openssl passwd -6
 Password:  # Type password then copy the output (106 characters)
 ```
-- Add SSDM theme:
-    - Add theme`cp /usr/share/sddm/ ~/archiso/arksys-iso/airootfs/usr/share/sddm/themes/breeze`
-    - Config SDDM `~/archiso/arksys-iso/airootfs/etc/sddm.conf`
-
-## Changes from [XeroLinux ISO](https://github.com/xerolinux/xero_iso/tree/main/Xero)
-
-- Edited:
-    - ./packages.x86_64
-- Removed:
-    - ./airootfs/usr/share/grub/themes/XeroKDE
-    - ./airootfs/usr/share/sddm/themes/XeroDark
-- To edit:
-    - ./airootfs/etc/lightdm
-    - ./airootfs/etc/mkinitcpio.d/arksys
-    - ./airootfs/etc/sddm.conf
-    - ./airootfs/efiboot/loader/entries/archiso-x86_64-linux.conf
 -->
