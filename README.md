@@ -41,7 +41,7 @@ To configure the app you need the clone the github repo.
 git clone https://github.com/calamares/calamares.git
 ```
 
-After that you can configure the appareance, the packages to install, the partitions, etc. inside calamares folder. You can use tree command like, `tree ./*.conf`
+After that you can configure the appareance (branding/) and the confiuration of the system inside (modules/.*conf) and the packages list (settings.conf). To view the tree structure of only .conf files use `tree -P "*.conf"`
 ```
 ./  # calamares directory
 ├── src/
@@ -59,16 +59,16 @@ cmake -DCMAKE_BUILD_TYPE=Debug .. # cmake ..
 make
 ```
 
-- B. Use a custom calamares configuration like [calamares-xerolinux](https://github.com/xerolinux/calamares-cfg), edit with ouwn taste and build. To build the package use `makepkg`
+- B. Use a custom calamares configuration like [calamares-xerolinux](https://github.com/xerolinux/calamares-cfg), edit with ouwn taste and build. To build use the make package command:
 ```sh
 makepkg
 ```
-> You can build and install the package with `makepg -si`
 
 This will generate a compressed package `pkgname-pkgver-arch.pkg.tar.zst` that you can install with pacman or add it to your database of packages.
 ```sh
 sudo pacman -U calamares-cfg-*.pkg.tar.zst
 ```
+> To build and install the package you can also use `makepg -si`
 
 ### How install Calamares
 Calamares can be installed using pacman from a repository (local or remote) or importing the necessary files in the system.
@@ -108,12 +108,10 @@ Then add the database to the pacman.conf
 ```
 
 #### B. Calamares installation importing files (not recommended)
-If you are going to stay in a version of calamares is easier just to import calamares files (libs & configuration). To do that just need to copy these files with the same dir structure airootfs/ of the archISO:
-
-> There is no /usr/bin/calamares and /usr/share/calamares/modules
+If you are going to stay in a version of calamares, you can import the files (libs & configuration). To do that just copy the files with the same dir structure airootfs/ of the archISO:
 
 ```sh
-./ # calamares directory
+./ # calamares directory inside archiso
 └── airootfs/
     ├── etc/
     │   └── calamares/
@@ -141,8 +139,8 @@ If you are going to stay in a version of calamares is easier just to import cala
                    └── slideshow/
 ```
 
+- Copy calamares (branding/, modules/, settigns.conf) and create desktop icon
 ```sh
-# copy calamares (branding/ modules/ settigns.conf)
 cp -r ~/ldb/calamares-cfg/etc/ ~/ldb/arksys-iso/airootfs/etc/
 
 cp -r ~/ldb/calamares/build/libcalamaresui.so.3.3.0 ~/ldb/airootfs/usr/lib/calamares
@@ -151,7 +149,6 @@ cp -r ~/ldb/calamares/build/src/modules/ ~/ldb/arksys-iso/airootfs/usr/lib/calam
 cp -r ~/ldb/calamares/build/src/branding/ ~/ldb/arksys-iso/airootfs/usr/share/calamares
 cp -r ~/ldb/calamares/build/src/qml/ ~/ldb/arksys-iso/airootfs/usr/share/calamares
 
-# create desktop icon
 cat << EOF >> ~/ldb/arksys-iso./airootfs/usr/share/applications/calamares.desktop
 [Desktop Entry]
 Type=Application
@@ -171,6 +168,8 @@ StartupNotify=true
 X-AppStream-Ignore=true
 EOF
 ```
+
+
 
 ## Tree of archiso (important files)
 ```
@@ -231,46 +230,3 @@ EOF
 │   └── splash.png
 └── README.md
 ```
-
-
-<!--
-## TO DO
-- [ ] Configure Calamares installer and build
-- [ ] Install Calamares on archiso with pacman (local or online)
-- [ ] Sign the ISO image:
-```sh
-sudo pacman -S gpg archiso
-gpg --full-generate-key
-gpg --export --armor >  ~/archiso/work/keyring.gpg
-cp ~/archiso/arksys-iso/keyring.gpg ~/archiso/arksys-iso/airootfs/etc/pacman.d/gnupg/archlinux*
-
-cat << EOF >> ~/archiso/arksys-iso/pacman.conf
-[archlinux]
-SigLevel = Optional TrustAll
-Server = http://mirror.archlinux.org/$repo/os/$arch
-EOF
-
-sudo ~/archiso/arksys-iso/mkarchiso -v releng/
-gpg --detach-sign --armor out/archlinux-x86_64.iso
-```
-
-## DONE
-- Add sudoers.d
-- Login manager for SDDM: `ln -s /usr/lib/systemd/system/sddm.service ~/archiso/arksys-iso/airootfs/etc/systemd/system/display-manager.service`
-- Change autologin `~/archiso/arksys-iso/airootfs/etc/systemd/system/getty@tty1.service.d/autologin.conf`. You can modify this file to change the auto login user:
-```sh
-[Service]
-ExecStart=
-ExecStart=-/sbin/agetty --autologin username --noclear %I 38400 linux
-```
-- To create a user which will be available in the live environment, you must manually edit inside `~/archiso/arksys-iso/airootfs/etc/shadow`:
-    - passwd
-    - shadow
-    - group
-    - gshadow
-- Add password with `openssl passwd -6` and copy to airootfs/shadow/shadow.
-```sh
-openssl passwd -6
-Password:  # Type password then copy the output (106 characters)
-```
--->
