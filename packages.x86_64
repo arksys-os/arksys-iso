@@ -144,6 +144,10 @@ logrotate
 ###             CALAMARES INSTALLER PACKAGES        ###
 #######################################################
 
+### Calamares-installer (ArkSys)
+calamares
+calamares-config
+
 ###  Calamares-installer (XeroLinux)
 #abs
 #calamares-app
@@ -152,27 +156,26 @@ logrotate
 #xero-fix-scripts
 #xerowelcome
 
-### Calamares-installer (ArkSys)
-#calamares-arksys-app
-#calamares-arksys-config
-
 ### Calamares-installer dependencies
-boost-libs
 ckbcomp
-gtk-update-icon-cache
-kconfig
-kcoreaddons
-ki18n
-kiconthemes
-kio
-kpmcore
-icu
-libpwquality
 mkinitcpio-openswap
-polkit-qt5
-solid
-xmlto
-yaml-cpp
+
+#boost-libs
+#gtk-update-icon-cache
+#kconfig
+#kcoreaddons
+#ki18n
+#kiconthemes
+#kio
+#kpmcore
+#icu
+#libpwquality
+#polkit-qt5
+#solid
+#xmlto
+#yaml-cpp
+
+### dependencies already installed
 #efibootmgr
 #hwinfo
 #plasma-framework
@@ -254,7 +257,7 @@ traceroute
 modemmanager
 networkmanager
 nm-cloud-setup
-rate-mirrors-bin
+#rate-mirrors-bin
 networkmanager-vpnc
 networkmanager-pptp
 networkmanager-l2tp
@@ -378,7 +381,7 @@ kcolorchooser
 kdegraphics-thumbnailers
 kdenlive
 kdeplasma-addons
-kwin-scripts-forceblur
+# kwin-scripts-forceblur
 spectacle
 svgpart
 
@@ -538,7 +541,7 @@ dmidecode
 dnsmasq
 downgrade
 duf
-edid-decode-git
+#edid-decode-git
 expac
 extra-cmake-modules
 file-roller
@@ -555,7 +558,7 @@ grsync
 gtest
 gtk-doc
 gts
-hardcode-fixer-git
+#hardcode-fixer-git
 hddtemp
 htop
 hw-probe

@@ -18,8 +18,8 @@ git clone https://github.com/David7ce/arksys-iso.git
 
 2. To build the ISO you need to create a work directory and an output directory for the ISO. Then us `mkarchiso` and do one of these:
 ```sh
-# sudo mkarchiso -v -w  ~/Linux-distro-build/work -o ./ ./arksys-iso
-# sudo mkarchiso -v -w  /tmp/archiso-tmp ./arksys-iso
+# sudo mkarchiso -v -w  ~/path-to-dir/work -o ~/path-to-dir/ ~/path-to-dir/arksys-iso
+# sudo mkarchiso -v -w  /tmp/archiso-tmp ~/path-to-dir//arksys-iso
 ```
 > Tip: If memory allows, it is preferred to place the working directory on tmpfs (/tmp/archiso-tmp)
 
@@ -91,21 +91,22 @@ And add the package name to `packages.x86_64`.
 
 ```sh
 # add a package to the database
-repo-add /path/to/repo.db.tar.gz /path/to/package-1.0-1-x86_64.pkg.tar.zst
+repo-add /path/to/my_repo.db.tar.gz /path/to/package-1.0-1-x86_64.pkg.tar.zst
 
 # add all packages in that path to the database
-repo-add /path/to/repo.db.tar.gz /path/to/*.pkg.tar.zst
+repo-add /path/to/my_repo.db.tar.gz /path/to/*.pkg.tar.zst
 ```
 
 Use a text editor and add the name of the package (`package-1.0-1-x86_64.pkg.tar.zst`) to `packages.x86_64`. For example with the package `calamares-arksys-1-x86_64.pkg.tar.zst` add calamares-arksys to the list of packages.
 
 Then add the database to the pacman.conf
 ```
-# Local repo (packages in my system)
-#[my_repo]
-#SigLevel = Optional TrustAll
-#Server = file:////home/username/arch-repo/pkgname-pkgver-arch.pkg.tar.zst
+[my_repo]
+SigLevel = Optional TrustAll
+Server = file:///Workspaces/repos/ArkSys-project/arksys-repo
 ```
+
+> If you choose another "reponame.db.tar.gz" the Server = file:///Workspaces/repos/ArkSys-project/reponame.db
 
 #### B. Calamares installation importing files (not recommended)
 If you are going to stay in a version of calamares, you can import the files (libs & configuration). To do that just copy the files with the same dir structure airootfs/ of the archISO:
