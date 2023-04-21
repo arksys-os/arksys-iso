@@ -144,11 +144,11 @@ logrotate
 ###             CALAMARES INSTALLER PACKAGES        ###
 #######################################################
 
-### Calamares-installer (ArkSys)
-calamares
+### Arksys-installer
+calamares-app
 calamares-config
 
-###  Calamares-installer (XeroLinux)
+### Xero-installer
 #abs
 #calamares-app
 #calamares-cfg

@@ -170,8 +170,6 @@ X-AppStream-Ignore=true
 EOF
 ```
 
-
-
 ## Tree of archiso (important files)
 ```
 ./
