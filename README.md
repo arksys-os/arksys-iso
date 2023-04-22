@@ -19,7 +19,7 @@ git clone https://github.com/David7ce/arksys-iso.git
 2. To build the ISO you need to create a work directory and an output directory for the ISO. Then us `mkarchiso` and do one of these:
 ```sh
 # sudo mkarchiso -v -w  ~/path-to-dir/work -o ~/path-to-dir/ ~/path-to-dir/arksys-iso
-# sudo mkarchiso -v -w  /tmp/archiso-tmp ~/path-to-dir//arksys-iso
+# sudo mkarchiso -v -w  /tmp/archiso-tmp ~/path-to-dir/arksys-iso
 ```
 > Tip: If memory allows, it is preferred to place the working directory on tmpfs (/tmp/archiso-tmp)
 

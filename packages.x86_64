@@ -144,10 +144,6 @@ logrotate
 ###             CALAMARES INSTALLER PACKAGES        ###
 #######################################################
 
-### Arksys-installer
-calamares-app
-calamares-config
-
 ### Xero-installer
 #abs
 #calamares-app
@@ -155,6 +151,10 @@ calamares-config
 #xerolinux-mirrorlist
 #xero-fix-scripts
 #xerowelcome
+
+### Arksys-installer
+calamares-app
+calamares-arksys-config
 
 ### Calamares-installer dependencies
 ckbcomp
