@@ -16,27 +16,21 @@ git clone https://github.com/David7ce/arksys-iso.git
 
 > If you want to build a basic Arch Linux system, copy the archiso basic profile `cp -r /usr/share/archiso/configs/releng/ archlive` and follow [archiso documentation](https://wiki.archlinux.org/title/Archiso).
 
-2. To build the ISO you need to create a work directory and an output directory for the ISO. Then us `mkarchiso` and do one of these:
+2. To build your own ISO you need to create a work directory and an output directory for the ISO. Then us `mkarchiso` and do one of these:
 ```sh
-# sudo mkarchiso -v -w  ~/path-to-dir/work -o ~/path-to-dir/ ~/path-to-dir/arksys-iso
-# sudo mkarchiso -v -w  /tmp/archiso-tmp ~/path-to-dir/arksys-iso
+# sudo mkarchiso -v -w  /path-to-dir/work -o /path-to-dir/ /path-to-dir/arksys-iso
 ```
 > Tip: If memory allows, it is preferred to place the working directory on tmpfs (/tmp/archiso-tmp)
 
-- To rebuild ISO, just remove files of work directory in one of these ways:
-    - Remove all content inside directory: `sudo rm -rf ./work/*`
-    - Remove only files starting with "base": `sudo rm -v ./work/base._*`
-    - Delete only the files in directory: `find ./work -maxdepth 1 -type f -delete`
+- To rebuild ISO, just remove files of work directory with`sudo rm -rf ./work/*`
 
 ## Calamares installer
-Calamares installer is a system installer, it is necessary if you want to install the OS permanently, because archiso is a live environment that is stored on the RAM.
+If you want to install the system permanently on your machine you need something like Calamares installer, because archiso is a live environment that is onlye stored in RAM.
 
 ### Configure and build Calamares
-There are two options:
+There are two options to configure and build the framework installer:
 
-- A. Download calamares from GitHub, configure and build.
-
-To configure the app you need the clone the github repo.
+- A. Download calamares from GitHub, just clone the github repo.
 ```sh
 git clone https://github.com/calamares/calamares.git
 ```
@@ -59,10 +53,7 @@ cmake -DCMAKE_BUILD_TYPE=Debug .. # cmake ..
 make
 ```
 
-- B. Use a custom calamares configuration like [calamares-xerolinux](https://github.com/xerolinux/calamares-cfg), edit with ouwn taste and build. To build use the make package command:
-```sh
-makepkg
-```
+- B. For Arch you can use a package build (PKGBUILD) like some distributions do, for example [calamares-config of XeroLinux](https://github.com/xerolinux/calamares-cfg). Clone te repo, edit the PKBUILD with your configuration and build. To build use the make package command `makepkg`.
 
 This will generate a compressed package `pkgname-pkgver-arch.pkg.tar.zst` that you can install with pacman or add it to your database of packages.
 ```sh
@@ -74,9 +65,7 @@ sudo pacman -U calamares-cfg-*.pkg.tar.zst
 Calamares can be installed using pacman from a repository (local or remote) or importing the necessary files in the system.
 
 #### A. Calamares installation with pacman (recommended)
-Calamares is not in the Arch repo, so you need to have your own repositories and configure the mirrorlist, the keys and the database. This better is beter if you plan on updating Calamares frequently.
-
-To download the package with pacman you can use an online or local repository:
+Calamares is not in the Arch repo, so you need to have your own repository, configure the mirrorlist, the keys and the database. This is beter if you plan on updating Calamares frequently. To download the package with pacman you can use an online or local repository:
 
 - To use an **online repo** configure pacman.conf and add the repository of your calamares-installer package:
 ```

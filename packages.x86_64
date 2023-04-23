@@ -1,6 +1,7 @@
-#####################################################################
-###                        ARCHISO PACKAGES                       ###
-#####################################################################
+###############################################################
+###                   ARCHISO PACKAGES                      ###
+###############################################################
+
 
 ### archiso-by-default
 archiso
@@ -140,9 +141,9 @@ dnsutils
 logrotate
 
 
-#######################################################
-###             CALAMARES INSTALLER PACKAGES        ###
-#######################################################
+###############################################################
+###             CALAMARES INSTALLER PACKAGES                ###
+###############################################################
 
 ### Arksys-installer
 arksys-welcome
@@ -153,32 +154,32 @@ calamares-arksys-config
 ckbcomp
 mkinitcpio-openswap
 
-#boost-libs
-#gtk-update-icon-cache
-#kconfig
-#kcoreaddons
-#ki18n
-#kiconthemes
-#kio
-#kpmcore
-#icu
-#libpwquality
-#polkit-qt5
-#solid
-#xmlto
-#yaml-cpp
+# boost-libs
+# gtk-update-icon-cache
+# kconfig
+# kcoreaddons
+# ki18n
+# kiconthemes
+# kio
+# kpmcore
+# icu
+# libpwquality
+# polkit-qt5
+# solid
+# xmlto
+# yaml-cpp
 
 ### dependencies already installed
-#efibootmgr
-#hwinfo
-#plasma-framework
-#qt5-svg
-#qt5-xmlpatterns
-#squashfs-tools
+# efibootmgr
+# hwinfo
+# plasma-framework
+# qt5-svg
+# qt5-xmlpatterns
+# squashfs-tools
 
-#######################################################
-###                 DRIVERS & LIBS                  ###
-#######################################################
+###############################################################
+###                    DRIVERS & LIBBRARIES                 ###
+###############################################################
 
 ### Display manager (Xorg / Wayland)
 xorg-apps
@@ -188,8 +189,8 @@ xorg-xrdb
 xorg-xkill
 
 ### Graphics-driver
-#nvidia
-#nvidia-open
+# nvidia
+# nvidia-open
 mesa
 
 ### Video-driver (X.org X11)
@@ -226,11 +227,11 @@ piper
 imwheel
 fprintd
 fingerprint-gui
-#gestures
+# gestures
 game-devices-udev
 iio-sensor-proxy
 libinput
-#libinput-gestures
+# libinput-gestures
 xf86-input-void
 xf86-input-wacom
 xf86-input-evdev
@@ -308,7 +309,7 @@ virtualbox-guest-utils
 
 ###############################################################
 #                   KDE: K Desktop Environment                #
-#             https://archlinux.org/groups/x86_64/plasma/     #
+#           https://archlinux.org/groups/x86_64/plasma/       #
 #    https://archlinux.org/groups/x86_64/kde-applications/    #
 ###############################################################
 
@@ -324,13 +325,13 @@ plasma-systemmonitor
 plasma-browser-integration
 
 ### KDE Wayland
-#egl-wayland
-#kwayland-server
-#kwayland-integration
-#plasma-wayland-session
-#plasma-wayland-protocols
-#qt6-wayland
-#xorg-xwayland
+# egl-wayland
+# kwayland-server
+# kwayland-integration
+# plasma-wayland-session
+# plasma-wayland-protocols
+# qt6-wayland
+# xorg-xwayland
 
 ### Essentials
 kwin
@@ -393,7 +394,7 @@ kate
 kcalc
 kdesdk-thumbnailers
 kdialog
-#kfind
+# kfind
 kgpg
 khelpcenter
 kmousetool
@@ -447,14 +448,14 @@ qt5-virtualkeyboard
 ###############################################################
 
 ### AUR (Arch User Respository)
-#libpamac
-#libpamac-flatpak-plugin
-#pacseek-bin
-#pamac-cli
-#pamac-gtk
-#pamac-tray-icon-plasma
-#topgrade
-#yay-bin
+# libpamac
+# libpamac-flatpak-plugin
+# pacseek-bin
+# pamac-cli
+# pamac-gtk
+# pamac-tray-icon-plasma
+# topgrade
+# yay-bin
 
 ### Browser
 firefox
@@ -466,12 +467,7 @@ ocs-url
 systemd-kcm
 systemdgenie
 xsettingsd
-yakuake
-
-### Editor
-code
-gimp
-obsidian
+# yakuake
 
 ### Fonts
 adobe-source-sans-pro-fonts
@@ -499,9 +495,8 @@ pacman-contrib
 
 ### Theme Tools
 neofetch
-latte-dock
-#lightly-git
-#kwin-bismuth-bin
+# latte-dock
+# lightly-git
 
 ### System Utilities
 alsi
@@ -527,7 +522,7 @@ dmidecode
 dnsmasq
 downgrade
 duf
-#edid-decode-git
+# edid-decode-git
 expac
 extra-cmake-modules
 file-roller
@@ -544,7 +539,7 @@ grsync
 gtest
 gtk-doc
 gts
-#hardcode-fixer-git
+# hardcode-fixer-git
 hddtemp
 htop
 hw-probe
@@ -603,7 +598,7 @@ figlet
 gmrun
 jq
 lm_sensors
-#mkinitcpio-firmware
+# mkinitcpio-firmware
 power-profiles-daemon
 ostree
 numlockx
@@ -613,4 +608,12 @@ appstream-glib
 flatseal
 okular
 mpv
-vlc
+
+
+###############################################################
+###                  ArkSys Extra Packages                  ###
+###############################################################
+# code
+# gimp
+# obsidian
+# vlc
