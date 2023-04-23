@@ -108,67 +108,6 @@ Server = file:///Workspaces/repos/ArkSys-project/arksys-repo
 
 > If you choose another "reponame.db.tar.gz" the Server = file:///Workspaces/repos/ArkSys-project/reponame.db
 
-#### B. Calamares installation importing files (not recommended)
-If you are going to stay in a version of calamares, you can import the files (libs & configuration). To do that just copy the files with the same dir structure airootfs/ of the archISO:
-
-```sh
-./ # calamares directory inside archiso
-└── airootfs/
-    ├── etc/
-    │   └── calamares/
-    │       ├── branding/
-    │       ├── modules/
-    │       └── settings.conf
-    └── usr/
-        ├── lib/
-        │   ├── calamares/
-        │   │     ├── modules/
-        │   │     │   └── default/
-        │   │     └── libcalamares.so
-        │   ├── libcalamares.so -> libcalamares.so.3.3.0
-        │   ├── libcalamares.so.3.3 -> libcalamares.so.3.3.0
-        │   ├── libcalamares.so.3.3.0
-        │   └── libcalamaresui.so -> libcalamares.so.3.3.0
-        └── share/
-            ├── applications/
-            │    └── calamares.desktop
-            └── calamares/
-               ├── branding/
-               │   └── default/
-               └── qml/
-                   ├── calamares/
-                   └── slideshow/
-```
-
-- Copy calamares (branding/, modules/, settigns.conf) and create desktop icon
-```sh
-cp -r ~/ldb/calamares-cfg/etc/ ~/ldb/arksys-iso/airootfs/etc/
-
-cp -r ~/ldb/calamares/build/libcalamaresui.so.3.3.0 ~/ldb/airootfs/usr/lib/calamares
-cp -r ~/ldb/calamares/build/src/modules/ ~/ldb/arksys-iso/airootfs/usr/lib/calamares
-
-cp -r ~/ldb/calamares/build/src/branding/ ~/ldb/arksys-iso/airootfs/usr/share/calamares
-cp -r ~/ldb/calamares/build/src/qml/ ~/ldb/arksys-iso/airootfs/usr/share/calamares
-
-cat << EOF >> ~/ldb/arksys-iso./airootfs/usr/share/applications/calamares.desktop
-[Desktop Entry]
-Type=Application
-Version=1.0
-Name=Install System
-GenericName=System Installer
-Comment=Calamares — System Installer
-Keywords=calamares;system;installer;
-TryExec=calamares
-Exec=sh -c "pkexec calamares"
-
-Categories=Qt;System;
-Icon=calamares
-Terminal=false
-SingleMainWindow=true
-StartupNotify=true
-X-AppStream-Ignore=true
-EOF
-```
 
 ## Tree of archiso (important files)
 ```

@@ -144,15 +144,8 @@ logrotate
 ###             CALAMARES INSTALLER PACKAGES        ###
 #######################################################
 
-### Xero-installer
-#abs
-#calamares-app
-#calamares-cfg
-#xerolinux-mirrorlist
-#xero-fix-scripts
-#xerowelcome
-
 ### Arksys-installer
+arksys-welcome
 calamares-app
 calamares-arksys-config
 
@@ -453,17 +446,15 @@ qt5-virtualkeyboard
 ###                  ArkSys Packages Selection              ###
 ###############################################################
 
-### Applications
-appstream-glib
-figlet
-flatseal
-gimp
-gmrun
-jq
-lm_sensors
-numlockx
-okular
-ostree
+### AUR (Arch User Respository)
+#libpamac
+#libpamac-flatpak-plugin
+#pacseek-bin
+#pamac-cli
+#pamac-gtk
+#pamac-tray-icon-plasma
+#topgrade
+#yay-bin
 
 ### Browser
 firefox
@@ -476,6 +467,11 @@ systemd-kcm
 systemdgenie
 xsettingsd
 yakuake
+
+### Editor
+code
+gimp
+obsidian
 
 ### Fonts
 adobe-source-sans-pro-fonts
@@ -500,16 +496,6 @@ gst-plugins-ugly
 ### PKG Management
 flatpak
 pacman-contrib
-
-### AUR (Arch User Respository)
-#libpamac
-#libpamac-flatpak-plugin
-#pacseek-bin
-#pamac-cli
-#pamac-gtk
-#pamac-tray-icon-plasma
-#topgrade
-#yay-bin
 
 ### Theme Tools
 neofetch
@@ -613,5 +599,18 @@ zip
 ### Tools
 brightnessctl
 cryptsetup
+figlet
+gmrun
+jq
+lm_sensors
 #mkinitcpio-firmware
 power-profiles-daemon
+ostree
+numlockx
+
+### Viewer
+appstream-glib
+flatseal
+okular
+mpv
+vlc
