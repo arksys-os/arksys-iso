@@ -65,37 +65,45 @@ sudo pacman -U calamares-cfg-*.pkg.tar.zst
 Calamares can be installed using pacman from a repository (local or remote) or importing the necessary files in the system.
 
 #### A. Calamares installation with pacman (recommended)
-Calamares is not in the Arch repo, so you need to have your own repository, configure the mirrorlist, the keys and the database. This is beter if you plan on updating Calamares frequently. To download the package with pacman you can use an online or local repository:
 
-- To use an **online repo** configure pacman.conf and add the repository of your calamares-installer package:
-```
-# XeroLinux Repository
-#[valen_repo]
-#SigLevel = Never
-#Server = https://keyaedisa.github.io/$repo/$arch
-```
-And add the package name to `packages.x86_64`.
+If you plan on updating Calamares is better to install with the package manager *pacman*. The problem is that Calamares is not in the offical Arch repo so you can use pacman directly like `sudo pacman -S calamares`. You need to add it to your own repo or use an existing one.
 
-- To use a **local repo** you need to generate a database. The database is a tar file with the extension .db or .files followed by an archive extension of .tar, .tar.gz, .tar.bz2, .tar.xz, .tar.zst, .tar.Z.
-
+- You can use an [unofficial user repository](https://wiki.archlinux.org/title/unofficial_user_repositories) adding the repo and the server.
 ```sh
-# add a package to the database
-repo-add /path/to/my_repo.db.tar.gz /path/to/package-1.0-1-x86_64.pkg.tar.zst
+# XeroLinux Repository ($repo = valen_repo and $arch = x86_64)
+[valen_repo]
+Server = https://keyaedisa.github.io/$repo/$arch
+```
 
+ - Or create your own repo locally or remotely. The repository is a collection of tarball packages `*.pkg.tar.zst` indexed in a tarball database file .db or .files, for example `arksys-repo.db.tar.gz`. So *Pacman* can "eat" the compressed packages and build them.
+
+ Once you make the packages with `makepkg` you can add it to your repository.
+```sh
 # add all packages in that path to the database
 repo-add /path/to/my_repo.db.tar.gz /path/to/*.pkg.tar.zst
 ```
 
-Use a text editor and add the name of the package (`package-1.0-1-x86_64.pkg.tar.zst`) to `packages.x86_64`. For example with the package `calamares-arksys-1-x86_64.pkg.tar.zst` add calamares-arksys to the list of packages.
-
-Then add the database to the pacman.conf
-```
-[my_repo]
+Then add the database to the pacman.conf with a local or remote path:
+```sh
+# ArkSys repo
+[arksys-repo]
 SigLevel = Optional TrustAll
-Server = file:///Workspaces/repos/ArkSys-project/arksys-repo
+Server = file:///home/d7/ArkSys-project/$repo/$arch #local server
+
+# remote server
+#Server = https://github.com/arksys-os/$repo/blob/main/$arch
+#Server = https://arksys-os.github.io/$repo/$arch
 ```
 
-> If you choose another "reponame.db.tar.gz" the Server = file:///Workspaces/repos/ArkSys-project/reponame.db
+If you want a list of servers you can add a mirrorlist in `/etc/pacman.d/` and include them in pacman.conf
+```
+[arksys]
+Include = /etc/pacman.d/arksys-mirrorlist
+```
+
+> For remote server is better adding the db symlink and the db tarball with extensions for downloading a with the correct format. While for local server you need the remove the symlink and change the name of the db tarball to redirect directly.
+
+> Pacman copy the repo.db of the server in `/var/lib/pacman/sync`
 
 
 ## Tree of archiso (important files)

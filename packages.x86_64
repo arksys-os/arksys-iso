@@ -333,59 +333,59 @@ plasma-browser-integration
 # qt6-wayland
 # xorg-xwayland
 
-### Essentials
-kwin
-sddm
-milou
-breeze
-kcrash
-drkonqi
-kgamma5
-kscreen
-khotkeys
-sddm-kcm
-kmenuedit
-ksysguard
+### KDE Essentials
+# packagekit-qt5
 bluedevil
-powerdevil
-libkscreen
+breeze
+drkonqi
 flatpak-kcm
-kinfocenter
-ksshaskpass
-kdecoration
-kglobalaccel
-libksysguard
-kde-dev-utils
-kscreenlocker
-xdg-user-dirs
-knotifications
-systemsettings
-kde-gtk-config
-packagekit-qt5
-layer-shell-qt
-polkit-kde-agent
 kactivitymanagerd
+kcrash
+kde-dev-utils
+kde-gtk-config
+kdecoration
 kdenetwork-filesharing
+kgamma5
+kglobalaccel
+khotkeys
+kinfocenter
+kmenuedit
+knotifications
+kscreen
+kscreenlocker
+ksshaskpass
+ksysguard
+kwin
+layer-shell-qt
+libkscreen
+libksysguard
+milou
+packagekit
+polkit-kde-agent
+powerdevil
+sddm
+sddm-kcm
+systemsettings
 xdg-desktop-portal-kde
+xdg-user-dirs
 
-### Graphics
+### KDE Graphics
 gwenview
-inkscape
 kcolorchooser
 kdegraphics-thumbnailers
 kdenlive
 kdeplasma-addons
-# kwin-scripts-forceblur
 spectacle
 svgpart
+# kwin-scripts-forceblur
 
-## Networking
+## KDE Networking
 kdeconnect
 kio-zeroconf
 kdenetwork-filesharing
 signon-kwallet-extension
 
-## Utilities
+## KDE Utilities
 ark
 dolphin
 #dolphin-plugins
@@ -615,5 +615,6 @@ mpv
 ###############################################################
 # code
 # gimp
+# inkscape
 # obsidian
 # vlc
