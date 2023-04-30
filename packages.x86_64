@@ -2,7 +2,6 @@
 ###                   ARCHISO PACKAGES                      ###
 ###############################################################
 
-
 ### archiso-by-default
 archiso
 alsa-utils
@@ -142,18 +141,27 @@ logrotate
 
 
 ###############################################################
-###             CALAMARES INSTALLER PACKAGES                ###
+###                  LINUX DISTRO PACKAGES                  ###
 ###############################################################
 
-### Arksys-installer
+### Arksys calamares
 arksys-welcome
 calamares-app
 calamares-arksys-config
 
+### CachyOS calamares
+# cachyos-hello
+# cachyos-calamares-grub
+
+### Xerolinux calamares
+# calamares-app
+# calamares-cfg
+# xerolinux-mirrorlist
+# xerowelcome
+
 ### Calamares-installer dependencies
 ckbcomp
 mkinitcpio-openswap
-
 # boost-libs
 # gtk-update-icon-cache
 # kconfig
@@ -168,8 +176,7 @@ mkinitcpio-openswap
 # solid
 # xmlto
 # yaml-cpp
-
-### dependencies already installed
+## dependencies already installed
 # efibootmgr
 # hwinfo
 # plasma-framework
@@ -591,14 +598,14 @@ yad
 zenity
 zip
 
-### Tools
+### Tools by TechXero
 brightnessctl
 cryptsetup
 figlet
 gmrun
 jq
 lm_sensors
-# mkinitcpio-firmware
+mkinitcpio-firmware
 power-profiles-daemon
 ostree
 numlockx
@@ -608,13 +615,3 @@ appstream-glib
 flatseal
 okular
 mpv
-
-
-###############################################################
-###                  ArkSys Extra Packages                  ###
-###############################################################
-# code
-# gimp
-# inkscape
-# obsidian
-# vlc
