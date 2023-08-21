@@ -62,7 +62,7 @@ A. Create a pkgbuild 'calamares-app' and 'calamares-config' and build with `make
 B. Or copy the packages permanently in "airootfs/etc/calamares", easier for offline installation.
 
 
-> To build calamares installer:
+> To build calamares installer from GitHub repo:
 ```sh
 git clone https://github.com/calamares/calamares.git
 mkdir calamares/build && cd calamares/build
@@ -70,24 +70,29 @@ cmake -DCMAKE_BUILD_TYPE=Debug ..
 make
 ```
 
-
+## 3. Configure the package repository: 'arksys-repo'
+- Create 'arksys-repo.db.tar.gz' add packages and rename to avoid errors on GitHub
 ```sh
-./  # calamares directory
-├── src/
-|   ├── branding/
-|   |   └── distroname/
-|   └── modules/
-|       └── *.conf
-└── settings.conf
+cd ./x86_64/
+
+# create file if not exists
+touch -c arksys-repo.db.tar.gz
+
+# add all packages with ".pkg.tar.zst" extension in that path to the database
+repo-add arksys-repo.db.tar.gz *.pkg.tar.zst
+
+# remove symlinks
+rm arksys-repo.db
+rm arksys-repo.files
+
+# rename files without ".tar.gz" because the symlinks do not exist
+mv arksys-repo.db.tar.gz arksys-repo.db
+mv arksys-repo.files.tar.gz arksys-repo.files
 ```
 
-## 3. Configure the package repository: 'arksys-repo'
-- Create 'arksys-repo.db.tar.gz', 'arksys-repo.db.tar.gz'
-- Add the packages to the repo with `repo-add arksys-repo.db.tar.gz *.pkg.tar.zst`
-- Rename to 'arksys-repo.db', 'arksys-repo.db' without 'tar.gz' to avoid problems on GitHub
-- Upload the repository to a remote server, for example to a GitHub repository
+- Upload the repository to a remote server, for example a GitHub repository
 
-> For remote server is better adding the db symlink and the db tarball with extensions for downloading a with the correct format. While for local server you need the remove the symlink and change the name of the db tarball to redirect directly.
+> For remote server is better adding the db symlink and the db tarball with extensions for downloading with the correct format. While for local server you need the remove the symlink and change the name of the db tarball to redirect directly.
 
 ## 4. Build the ISO
 - To build the iso use `sudo mkarchiso -v -w ./work -o ./ ./archiso-arksys`
