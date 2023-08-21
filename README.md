@@ -98,7 +98,14 @@ mv arksys-repo.files.tar.gz arksys-repo.files
 - To build the iso use `sudo mkarchiso -v -w ./work -o ./ ./archiso-arksys`
 - To rebuild ISO, just remove files of work directory with `sudo rm -rf ./work/*`
 
-> Tip: If memory allows, it is preferred to place the working directory on tmpfs '/tmp/archiso-tmp'
+> Tip: If memory allows, it is preferred to place the working directory on tmpfs '/tmp/archiso-tmp'. E.g.:
+```sh
+sudo mkarchiso -v -w /tmp/archiso-tmp ./
+sudo rm -rf /tmp/archiso-tmp/* # remove content
+```
+where:
+-w work directory
+-o is output directory
 
 ## Tree of archiso (important files)
 ```sh
