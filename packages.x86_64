@@ -144,10 +144,12 @@ logrotate
 ###                  LINUX DISTRO PACKAGES                  ###
 ###############################################################
 
+calamares
+
 ### Arksys calamares
-arksys-welcome
-calamares-app
-calamares-arksys-config
+# calamares-app
+# calamares-arksys-config
+# arksys-welcome
 
 ### CachyOS calamares
 # cachyos-hello
@@ -162,6 +164,12 @@ calamares-arksys-config
 ### Calamares-installer dependencies
 ckbcomp
 mkinitcpio-openswap
+# mkinitcpio-firmware
+# aic94xx-firmware
+# ast-firmware
+# wd719x-firmware
+# upd72020x-fw
+
 # boost-libs
 # gtk-update-icon-cache
 # kconfig
@@ -605,7 +613,6 @@ figlet
 gmrun
 jq
 lm_sensors
-mkinitcpio-firmware
 power-profiles-daemon
 ostree
 numlockx
