@@ -90,7 +90,7 @@ make
 > For remote server is better adding the db symlink and the db tarball with extensions for downloading a with the correct format. While for local server you need the remove the symlink and change the name of the db tarball to redirect directly.
 
 ## 4. Build the ISO
-- TO build the iso use `sudo mkarchiso -v -w ./work -o ./ ./archiso-arksys`
+- To build the iso use `sudo mkarchiso -v -w ./work -o ./ ./archiso-arksys`
 - To rebuild ISO, just remove files of work directory with `sudo rm -rf ./work/*`
 
 > Tip: If memory allows, it is preferred to place the working directory on tmpfs '/tmp/archiso-tmp'
@@ -101,10 +101,10 @@ make
 ├── airootfs/
 │   ├── etc/
 │   │   ├── calamares/
-|   |   |   ├── branding/       # can be installed via pacman
-|   |   |   |   └── distroname/ # can be installed via pacman
-|   |   |   ├── modules/        # can be installed via pacman 
-|   |   |   |   └── *.conf      # can be installed via pacman   
+│   │   │   ├── branding/       # can be installed via pacman
+│   │   │   │   └── distroname/ # can be installed via pacman
+│   │   │   ├── modules/        # can be installed via pacman
+│   │   │   │   └── *.conf      # can be installed via pacman
 │   │   │   └── settings.conf
 │   │   ├── gshadow
 │   │   ├── hostname
@@ -160,4 +160,4 @@ make
 ```
 
 ## References
-- https://wiki.archlinux.org/title/Archiso
+- [Archiso - ArchWiki](https://wiki.archlinux.org/title/Archiso)
