@@ -144,32 +144,30 @@ logrotate
 ###                  LINUX DISTRO PACKAGES                  ###
 ###############################################################
 
-calamares
+calamares-app
 
-### Arksys calamares
-# calamares-app
-# calamares-arksys-config
+### Arksys configuration
+calamares-arksys-config
 # arksys-welcome
-
-### CachyOS calamares
-# cachyos-hello
-# cachyos-calamares-grub
-
-### Xerolinux calamares
-# calamares-app
-# calamares-cfg
-# xerolinux-mirrorlist
-# xerowelcome
 
 ### Calamares-installer dependencies
 ckbcomp
 mkinitcpio-openswap
+
+## dependencies already installed
+# efibootmgr
+# hwinfo
+# plasma-framework
+# qt5-svg
+# qt5-xmlpatterns
+# squashfs-tools
+
+## dependencies not needed
 # mkinitcpio-firmware
 # aic94xx-firmware
 # ast-firmware
 # wd719x-firmware
 # upd72020x-fw
-
 # boost-libs
 # gtk-update-icon-cache
 # kconfig
@@ -184,13 +182,6 @@ mkinitcpio-openswap
 # solid
 # xmlto
 # yaml-cpp
-## dependencies already installed
-# efibootmgr
-# hwinfo
-# plasma-framework
-# qt5-svg
-# qt5-xmlpatterns
-# squashfs-tools
 
 ###############################################################
 ###                    DRIVERS & LIBBRARIES                 ###
@@ -605,17 +596,6 @@ xdo
 yad
 zenity
 zip
-
-### Tools by TechXero
-brightnessctl
-cryptsetup
-figlet
-gmrun
-jq
-lm_sensors
-power-profiles-daemon
-ostree
-numlockx
 
 ### Viewer
 appstream-glib

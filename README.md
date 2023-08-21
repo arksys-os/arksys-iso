@@ -1,42 +1,77 @@
-# ArkSys-ISO
+# Steps to build Arksys ISO
 
-ArkSys-ISO is an [ArchISO](https://wiki.archlinux.org/title/Archiso) profile to generate a disk ISO image. ArkSys-ISO is similar to [XeroLinux-ISO](https://github.com/xerolinux/xero_iso), a disk image with Arch Linux, KDE and Calamares installer to install the system in a graphical and easy way.
+ArkSys-ISO is an [ArchISO](https://wiki.archlinux.org/title/Archiso) profile to generate a disk ISO image. ArkSys-ISO is a disk image with Arch Linux, KDE and Calamares installer to install the system in a graphical and easy way.
 
-## How to build ArkSys-ISO
+## 0. Download 'archiso' package
+- Install 'archiso' or 'archiso-git' tool with pacman, necessary to build an Arch Linux live ISO image: `sudo pacman -S archiso`
 
-0. Install archiso tool with pacman, necessary to build an Arch Linux live ISO image.
+
+## 1. Create archiso profile: 'archiso-arksys'
+- Adapt a custom archiso profile, copy archiso profile 'releng' to a new dir:`cp -r /usr/share/archiso/configs/releng/. archlive` or download an archiso-profile `git clone https://github.com/David7ce/arksys-iso.git`
+- Edit the archiso profile adding packages for installation in 'packages.x86_64'
+- Add the mirrorlist (list of URLs of Package repositories) in 'pacman.conf'
 ```sh
-sudo pacman -S archiso
+# $repo = arksys
+# $arch = x86_64
+
+# ArkSys Online
+[arksys]
+SigLevel = Optional TrustAll
+Server = https://github.com/arksys-os/$repo/blob/main/$arch
+       # https://arksys-os.github.io/$repo/$arch
+
+# ArkSys Offline or local
+# [arksys]
+# SigLevel = Optional TrustAll
+# Server = file:///repo/
+
+# To include mirrorlist
+#[arksys]
+#Include = /etc/pacman.d/arksys-mirrorlist
 ```
 
-1. Download arksys with git
-```
-git clone https://github.com/David7ce/arksys-iso.git
-```
+- Configure user profile in 'airootfs/usr'
+    - Login manager for SDDM:
+    ```sh
+    ln -s /usr/lib/systemd/system/sddm.service airootfs/etc/systemd/system/display-manager.service`
+    ```
+    - Change autologin in `airootfs/etc/systemd/system/getty@tty1.service.d/autologin.conf`. You can modify this file to change the auto login user:
+    ```sh
+    [Service]
+    ExecStart=
+    ExecStart=-/sbin/agetty --autologin username --noclear %I 38400 linux
+    ```
 
-> If you want to build a basic Arch Linux system, copy the archiso basic profile `cp -r /usr/share/archiso/configs/releng/ archlive` and follow [archiso documentation](https://wiki.archlinux.org/title/Archiso).
+- Configure live environment in 'airootfs/etc'
+    - Create a user in live environment, editing `airootfs/etc/shadow`:
+        - passwd
+        - `openssl passwd -6` > shadow
+        - group
+        - gshadow
 
-2. To build your own ISO you need to create a work directory and an output directory for the ISO. Then us `mkarchiso` and do one of these:
-```sh
-# sudo mkarchiso -v -w  /path-to-dir/work -o /path-to-dir/ /path-to-dir/arksys-iso
-```
-> Tip: If memory allows, it is preferred to place the working directory on tmpfs (/tmp/archiso-tmp)
+> Optional configure a welcome-app and add to the package repository
 
-- To rebuild ISO, just remove files of work directory with`sudo rm -rf ./work/*`
+## 2. Configure framework installer: calamares-installer
+- We need two apps:
+    - 'calamares-app', calamares main app
+    - 'calamares-config', calamares branding and modules configuration
 
-## Calamares installer
-If you want to install the system permanently on your machine you need something like Calamares installer, because archiso is a live environment that is onlye stored in RAM.
+There are two options for installing both apps:
 
-### Configure and build Calamares
-There are two options to configure and build the framework installer:
+A. Create a pkgbuild 'calamares-app' and 'calamares-config' and build with `makepkg` then move the generated 'tar.gz' package to the repository for installing with pacman.
+B. Or copy the packages permanently in "airootfs/etc/calamares", easier for offline installation.
 
-- A. Download calamares from GitHub, just clone the github repo.
+
+> To build calamares installer:
 ```sh
 git clone https://github.com/calamares/calamares.git
+mkdir calamares/build && cd calamares/build
+cmake -DCMAKE_BUILD_TYPE=Debug ..
+make
 ```
 
-After that you can configure the appareance (branding/) and the confiuration of the system inside (modules/.*conf) and the packages list (settings.conf). To view the tree structure of only .conf files use `tree -P "*.conf"`
-```
+
+```sh
 ./  # calamares directory
 ├── src/
 |   ├── branding/
@@ -46,72 +81,30 @@ After that you can configure the appareance (branding/) and the confiuration of 
 └── settings.conf
 ```
 
-Once you have configured it you can build the app inside build directory.
-```sh
-mkdir calamares/build && cd calamares/build
-cmake -DCMAKE_BUILD_TYPE=Debug .. # cmake ..
-make
-```
-
-- B. For Arch you can use a package build (PKGBUILD) like some distributions do, for example [calamares-config of XeroLinux](https://github.com/xerolinux/calamares-cfg). Clone te repo, edit the PKBUILD with your configuration and build. To build use the make package command `makepkg`.
-
-This will generate a compressed package `pkgname-pkgver-arch.pkg.tar.zst` that you can install with pacman or add it to your database of packages.
-```sh
-sudo pacman -U calamares-cfg-*.pkg.tar.zst
-```
-> To build and install the package you can also use `makepg -si`
-
-### How install Calamares
-Calamares can be installed using pacman from a repository (local or remote) or importing the necessary files in the system.
-
-#### A. Calamares installation with pacman (recommended)
-
-If you plan on updating Calamares is better to install with the package manager *pacman*. The problem is that Calamares is not in the offical Arch repo so you can use pacman directly like `sudo pacman -S calamares`. You need to add it to your own repo or use an existing one.
-
-- You can use an [unofficial user repository](https://wiki.archlinux.org/title/unofficial_user_repositories) adding the repo and the server.
-```sh
-# XeroLinux Repository ($repo = valen_repo and $arch = x86_64)
-[valen_repo]
-Server = https://keyaedisa.github.io/$repo/$arch
-```
-
- - Or create your own repo locally or remotely. The repository is a collection of tarball packages `*.pkg.tar.zst` indexed in a tarball database file .db or .files, for example `arksys-repo.db.tar.gz`. So *Pacman* can "eat" the compressed packages and build them.
-
- Once you make the packages with `makepkg` you can add it to your repository.
-```sh
-# add all packages in that path to the database
-repo-add /path/to/my_repo.db.tar.gz /path/to/*.pkg.tar.zst
-```
-
-Then add the database to the pacman.conf with a local or remote path:
-```sh
-# ArkSys repo
-[arksys-repo]
-SigLevel = Optional TrustAll
-Server = file:///home/d7/ArkSys-project/$repo/$arch #local server
-
-# remote server
-#Server = https://github.com/arksys-os/$repo/blob/main/$arch
-#Server = https://arksys-os.github.io/$repo/$arch
-```
-
-If you want a list of servers you can add a mirrorlist in `/etc/pacman.d/` and include them in pacman.conf
-```
-[arksys]
-Include = /etc/pacman.d/arksys-mirrorlist
-```
+## 3. Configure the package repository: 'arksys-repo'
+- Create 'arksys-repo.db.tar.gz', 'arksys-repo.db.tar.gz'
+- Add the packages to the repo with `repo-add arksys-repo.db.tar.gz *.pkg.tar.zst`
+- Rename to 'arksys-repo.db', 'arksys-repo.db' without 'tar.gz' to avoid problems on GitHub
+- Upload the repository to a remote server, for example to a GitHub repository
 
 > For remote server is better adding the db symlink and the db tarball with extensions for downloading a with the correct format. While for local server you need the remove the symlink and change the name of the db tarball to redirect directly.
 
-> Pacman copy the repo.db of the server in `/var/lib/pacman/sync`
+## 4. Build the ISO
+- TO build the iso use `sudo mkarchiso -v -w ./work -o ./ ./archiso-arksys`
+- To rebuild ISO, just remove files of work directory with `sudo rm -rf ./work/*`
 
+> Tip: If memory allows, it is preferred to place the working directory on tmpfs '/tmp/archiso-tmp'
 
 ## Tree of archiso (important files)
-```
+```sh
 ./
 ├── airootfs/
 │   ├── etc/
 │   │   ├── calamares/
+|   |   |   ├── branding/       # can be installed via pacman
+|   |   |   |   └── distroname/ # can be installed via pacman
+|   |   |   ├── modules/        # can be installed via pacman 
+|   |   |   |   └── *.conf      # can be installed via pacman   
 │   │   │   └── settings.conf
 │   │   ├── gshadow
 │   │   ├── hostname
@@ -165,3 +158,6 @@ Include = /etc/pacman.d/arksys-mirrorlist
 │   └── splash.png
 └── README.md
 ```
+
+## References
+- https://wiki.archlinux.org/title/Archiso
