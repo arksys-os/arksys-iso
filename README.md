@@ -71,15 +71,12 @@ make
 ```
 
 ## 3. Configure the package repository: 'arksys-repo'
-- Create 'arksys-repo.db.tar.gz' add packages and rename to avoid errors on GitHub
+- Create a package database as a tar file, valid extensions are .db or .files followed by:  .tar.gz, .tar.bz2, .tar.xz, .tar.zst, or .tar.Z.
 ```sh
-cd ./x86_64/
-
-# create file if not exists
-touch -c arksys-repo.db.tar.gz
+cd ./arksys-repo/x86_64/
 
 # add all packages with ".pkg.tar.zst" extension in that path to the database
-repo-add arksys-repo.db.tar.gz *.pkg.tar.zst
+repo-add arksys-repo.db.tar.zst *.pkg.tar.zst
 
 # remove symlinks
 rm arksys-repo.db
