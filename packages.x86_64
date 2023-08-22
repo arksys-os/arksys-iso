@@ -144,10 +144,10 @@ logrotate
 ###                  LINUX DISTRO PACKAGES                  ###
 ###############################################################
 
-calamares-app
+calamares
 
 ### Arksys configuration
-calamares-arksys-config
+#calamares-arksys-config
 # arksys-welcome
 
 ### Calamares-installer dependencies
@@ -254,7 +254,6 @@ smbclient
 net-tools
 openresolv
 traceroute
-modemmanager
 networkmanager
 nm-cloud-setup
 #rate-mirrors-bin
@@ -281,13 +280,14 @@ ldmtool
 udiskie
 udisks2
 
-### Libraries
+### Python libs
 libxinerama
+
+python-pip
 python-cffi
 python-numpy
 python-docopt
 python-pyaudio
-python-anytree
 python-pyparted
 python-pygments
 python-websockets
@@ -350,7 +350,6 @@ kcrash
 kde-dev-utils
 kde-gtk-config
 kdecoration
-kdenetwork-filesharing
 kgamma5
 kglobalaccel
 khotkeys
@@ -524,8 +523,6 @@ cronie
 dbus-python
 dconf-editor
 dex
-dmidecode
-dnsmasq
 downgrade
 duf
 # edid-decode-git
@@ -590,7 +587,6 @@ vala
 vi
 vnstat
 w3m
-wget
 wmctrl
 xdo
 yad

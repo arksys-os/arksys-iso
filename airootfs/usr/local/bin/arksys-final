@@ -36,7 +36,7 @@ rm -f /etc/systemd/system/etc-pacman.d-gnupg.mount
 rm -f /etc/xdg/autostart/welcome.desktop
 rm /root/{.automated_script.sh,.zlogin}
 mv /etc/arksys-release /etc/lsb-release
-rm -rf /home/liveuser/
+rm -rf /home/ark/
 
 echo "Permission of root"
 echo "#################################"
@@ -60,7 +60,7 @@ sed -i '219 i OnlyShowIn=KDE' /etc/xdg/autostart/org.kde.kgpg.desktop
 
 echo "Fixing SDDM.conf User"
 echo "#################################"
-sed -i "s/User=liveuser/User=/g" /etc/sddm.conf.d/kde_settings.conf
+sed -i "s/User=ark/User=/g" /etc/sddm.conf.d/kde_settings.conf
 
 echo "#################################"
 echo "End arksys-final"
