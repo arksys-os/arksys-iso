@@ -1,3 +1,7 @@
+> Arksys login:
+- user: ark
+- password: 123
+
 # Steps to build Arksys ISO
 
 ArkSys-ISO is an [ArchISO](https://wiki.archlinux.org/title/Archiso) profile to generate a disk ISO image. ArkSys-ISO is a disk image with Arch Linux, KDE and Calamares installer to install the system in a graphical and easy way.
