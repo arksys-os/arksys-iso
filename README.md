@@ -14,27 +14,18 @@ ArkSys-ISO is an [ArchISO](https://wiki.archlinux.org/title/Archiso) profile to 
 # $repo is the word between [name-repo] must be the same as name of the database name-repo.db
 # $arch is the architecture (x86_64, arm, ...)
 
-## Arksys mirrorlist
-#[arksys]
-#Include = /etc/pacman.d/arksys-mirrorlist
-
-# ArkSys Online
-[arksys]
+# ArkSys server: Online (https://) or offline/local (file://)
+[arksys-repo]
 SigLevel = Optional TrustAll
-Server = https://arksys-os.github.io/$repo/$arch
-        #https://github.com/arksys-os/$repo/blob/main/$arch
+Server = https://github.com/arksys-os/$repo/raw/main/$arch
+# Server = https://arksys-os.github.io/$repo/$arch
+# Server = file:///0/Workspaces/ArkSys-project/$repo/$arch
+# Include = /etc/pacman.d/arksys-mirrorlist
 
 ## Examples
-# https://arksys.github.io/arksys-repo/x86_64/calamares-arksys-config-23.08-20-any.pkg.tar.zst
-# https://xerolinux.github.io/xerolinux_repo/x86_64/calamares-xero-config-23.08-20-any.pkg.tar.zst
-
-# ArkSys Offline or local
-# [arksys]
-# SigLevel = Optional TrustAll
-# Server = file:///repo/
-
-#more repositories here:
-#https://wiki.archlinux.org/index.php/unofficial_user_repositories
+# https://github.com/arksys-os/arksys-repo/raw/main/x86_64/grub-tools-1.6.7-1-any.pkg.tar.zst
+# https://arksys.github.io/arksys-repo/x86_64/calamares-3.2.62-1-x86_64.pkg.tar.zst
+# file:///0/Workspaces/ArkSys-project/arksys-repo/x86_64/calamares-3.2.62-1-x86_64.pkg.tar.zst
 ```
 
 - Configure user profile in 'airootfs/usr'
@@ -176,3 +167,4 @@ where:
 
 ## References
 - [Archiso - ArchWiki](https://wiki.archlinux.org/title/Archiso)
+- [Unofficial repositories - ArchWiki](https://wiki.archlinux.org/index.php/unofficial_user_repositories)
