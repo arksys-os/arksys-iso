@@ -9,25 +9,32 @@ ArkSys-ISO is an [ArchISO](https://wiki.archlinux.org/title/Archiso) profile to 
 ## 1. Create archiso profile: 'archiso-arksys'
 - Adapt a custom archiso profile, copy archiso profile 'releng' to a new dir:`cp -r /usr/share/archiso/configs/releng/. archlive` or download an archiso-profile `git clone https://github.com/David7ce/arksys-iso.git`
 - Edit the archiso profile adding packages for installation in 'packages.x86_64'
-- Add the mirrorlist (list of URLs of Package repositories) in 'pacman.conf'
+- Add the mirrorlist in 'pacman.conf and 'airootfs/etc/pacman.conf'
 ```sh
-# $repo = arksys
-# $arch = x86_64
+# $repo is the word between [name-repo] must be the same as name of the database name-repo.db
+# $arch is the architecture (x86_64, arm, ...)
+
+## Arksys mirrorlist
+#[arksys]
+#Include = /etc/pacman.d/arksys-mirrorlist
 
 # ArkSys Online
 [arksys]
 SigLevel = Optional TrustAll
-Server = https://github.com/arksys-os/$repo/blob/main/$arch
-       # https://arksys-os.github.io/$repo/$arch
+Server = https://arksys-os.github.io/$repo/$arch
+        #https://github.com/arksys-os/$repo/blob/main/$arch
+
+## Examples
+# https://arksys.github.io/arksys-repo/x86_64/calamares-arksys-config-23.08-20-any.pkg.tar.zst
+# https://xerolinux.github.io/xerolinux_repo/x86_64/calamares-xero-config-23.08-20-any.pkg.tar.zst
 
 # ArkSys Offline or local
 # [arksys]
 # SigLevel = Optional TrustAll
 # Server = file:///repo/
 
-# To include mirrorlist
-#[arksys]
-#Include = /etc/pacman.d/arksys-mirrorlist
+#more repositories here:
+#https://wiki.archlinux.org/index.php/unofficial_user_repositories
 ```
 
 - Configure user profile in 'airootfs/usr'
