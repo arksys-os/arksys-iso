@@ -90,7 +90,6 @@ ppp
 pptpclient
 pv
 reflector
-#refind
 rp-pppoe
 rsync
 screen
@@ -138,6 +137,9 @@ grub
 os-prober
 grub-tools
 update-grub
+
+### Not used
+#refind
 
 
 ###############################################################
