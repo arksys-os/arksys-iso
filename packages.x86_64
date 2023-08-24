@@ -122,12 +122,6 @@ xdotool
 xfsprogs
 xl2tpd
 
-### Grub Stuff
-grub
-os-prober
-grub-tools
-update-grub
-
 ### archiso-extra
 exa
 ntp
@@ -139,18 +133,23 @@ haveged
 dnsutils
 logrotate
 
+### Grub Stuff
+grub
+os-prober
+grub-tools
+update-grub
+
 
 ###############################################################
 ###                  LINUX DISTRO PACKAGES                  ###
 ###############################################################
 
-calamares
-
 ### Arksys configuration
-#calamares-arksys-config
-# arksys-welcome
+#arksys-calamares-config
+#arksys-welcome
 
-### Calamares-installer dependencies
+### Calamares-installer + dependencies
+calamares
 ckbcomp
 mkinitcpio-openswap
 
