@@ -146,12 +146,16 @@ update-grub
 ###                  LINUX DISTRO PACKAGES                  ###
 ###############################################################
 
-### Arksys configuration
-#arksys-calamares-config
 #arksys-welcome
 
 ### Calamares-installer + dependencies
-calamares
+arco-calamares-git
+arco-calamares-config-plasma
+
+#arksys-calamares-config
+#arksys-calamares
+
+
 ckbcomp
 mkinitcpio-openswap
 
