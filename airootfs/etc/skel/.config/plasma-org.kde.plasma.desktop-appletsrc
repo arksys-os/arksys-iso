@@ -96,7 +96,7 @@ DialogWidth=1920
 AppletOrder=3;4;28;5;6;29;7;18;19
 
 [Containments][25]
-ItemGeometries-1920x1200=
+ItemGeometries-1920x1080=
 ItemGeometriesHorizontal=
 activityId=bb296ba8-eb9b-402c-aebd-46b12e5647d9
 formfactor=0
@@ -113,7 +113,7 @@ DialogWidth=700
 [Containments][25][General]
 ToolBoxButtonState=topcenter
 ToolBoxButtonX=532
-positions={"1920x1200":[]}
+positions={"1920x1080":[]}
 sortMode=-1
 
 [Containments][25][Wallpaper][org.kde.potd][General]
@@ -244,5 +244,3 @@ extraItems=org.kde.plasma.bluetooth,org.kde.plasma.battery,org.kde.plasma.clipbo
 knownItems=org.kde.plasma.bluetooth,org.kde.plasma.battery,org.kde.plasma.clipboard,org.kde.plasma.devicenotifier,org.kde.plasma.manage-inputmethod,org.kde.plasma.mediacontroller,org.kde.plasma.notifications,org.kde.plasma.keyboardindicator,org.kde.plasma.nightcolorcontrol,org.kde.kscreen,org.kde.plasma.keyboardlayout,org.kde.plasma.networkmanagement,org.kde.plasma.volume,org.kde.plasma.vault,org.kde.kdeconnect,org.kde.plasma.printmanager
 
 [ScreenMapping]
-itemsOnDisabledScreens=0,bb296ba8-eb9b-402c-aebd-46b12e5647d9,4,desktop:/Desktop,desktop:/steam.desktop,desktop:/I-want-default-desktop,desktop:/Downloads
-screenMapping=file:///home/d7/Desktop/Info-management-systems,0,bb296ba8-eb9b-402c-aebd-46b12e5647d9,file:///home/d7/Desktop/User-V,0,bb296ba8-eb9b-402c-aebd-46b12e5647d9

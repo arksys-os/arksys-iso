@@ -11,10 +11,22 @@
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
+[[ -r "/usr/share/bash-completion/bash_completion" ]] && . "/usr/share/bash-completion/bash_completion"
+
+eval "$(starship init bash)"
+
+# bashrc PS1 generator
+# export PS1="\[\033[38;5;85m\]\u\[$(tput sgr0)\]@\[$(tput sgr0)\]\[\033[38;5;215m\]\h\[$(tput sgr0)\]>[\w]:\\$ \[$(tput sgr0)\]"
+
+# do not display neofetch at the start of every terminal session
+#neofetch
+
+# Backup
+#external_ssd="/run/media/d7/ssd-backup/"
+alias backup-ssd='rsync -aAXv --delete /0/ \$external_ssd && echo -e "External SSD backup done!"'
+alias test-backup='rsync -aAXv --delete --dry-run /0/ \$external_ssd && echo -e "External SSD backup test done!"'
 
 export HISTCONTROL=ignoreboth:erasedups
-
-PS1='[\u@\h \W]\$ '
 
 if [ -d "$HOME/.bin" ] ;
   then PATH="$HOME/.bin:$PATH"
@@ -64,23 +76,26 @@ alias df='df -h'
 alias userlist='cut -d: -f1 /etc/passwd'
 
 # Pacman for software managment
-alias upall='topgrade'
+alias pacman='sudo pacman'
 alias search='sudo pacman -Qs'
 alias remove='sudo pacman -Rcns'
 alias install='sudo pacman -S'
 alias linstall='sudo pacman -U '
-alias update='sudo pacman -Syyu && flatpak update'
+alias update='sudo pacman -Syu && yay -Syu && flatpak update'
 alias clrcache='sudo pacman -Scc'
 alias orphans='sudo pacman -Rns $(pacman -Qtdq)'
 alias akring='sudo pacman -Sy archlinux-keyring --noconfirm'
 
-#Bash aliases
+# Bash aliases
+alias c='clear'
+alias hg='history'
+alias i='ip -br -c a'
+alias grep='grep --color=auto'
 alias mkfile='touch'
 alias jctl='journalctl -p 3 -xb'
 alias breload='cd ~ && source ~/.bashrc'
 alias zreload='cd ~ && source ~/.zshrc'
 alias pingme='ping -c64 github.com'
-alias cls='clear && neofetch'
 alias traceme='traceroute github.com'
 
 #hardware info --short
@@ -146,6 +161,13 @@ alias unhblock="hblock -S none -D none"
 alias reboot='sudo reboot'
 alias shut='sudo shutdown now'
 
+# Online server and mirrorliss
+alias reflector='sudo reflector --latest 50 --country Portugal,Spain,France,Italy,Germany,Sweden,"United Kingdom","United States" --protocol http,https --sort rate --save /etc/pacman.d/mirrorlist'
+
+# Interesting commands
+# list all commands and sort by alphabetical order with '_' chars at the beginning
+alias lsc='compgen -c | sort -k1.1,1.1 -k1.2n,1.2 > list-commands.txt'
+
 # ex = EXtractor for all kinds of archives
 # usage: ex <file>
 ex ()
@@ -172,6 +194,3 @@ ex ()
     echo ''$1' is not a valid file'
   fi
 }
-
-# do not display neofetch at the start of every terminal session
-#neofetch

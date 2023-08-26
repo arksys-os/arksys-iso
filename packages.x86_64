@@ -89,6 +89,7 @@ pcsclite
 ppp
 pptpclient
 pv
+# refind
 reflector
 rp-pppoe
 rsync
@@ -138,19 +139,17 @@ os-prober
 grub-tools
 update-grub
 
-### Not used
-#refind
-
 
 ###############################################################
 ###                  LINUX DISTRO PACKAGES                  ###
 ###############################################################
 
-arksys-calamares-config
+### CALAMARES
 arksys-calamares
-#arksys-welcome
+arksys-calamares-config
+# arksys-welcome
 
-### Calamares-installer dependencies
+## Calamares-installer dependencies
 ckbcomp
 mkinitcpio-openswap
 
@@ -202,13 +201,13 @@ mesa
 ### Video-driver (X.org X11)
 autorandr
 xf86-video-qxl
-#xf86-video-ati
+# xf86-video-ati
 xf86-video-fbdev
-#xf86-video-intel
+# xf86-video-intel
 xf86-video-vmware
-#xf86-video-vesa
-#xf86-video-amdgpu
-#xf86-video-nouveau
+# xf86-video-vesa
+# xf86-video-amdgpu
+# xf86-video-nouveau
 xf86-video-openchrome
 
 ### Audio-driver (pipewire / pulseaudio)
@@ -256,7 +255,7 @@ openresolv
 traceroute
 networkmanager
 nm-cloud-setup
-#rate-mirrors-bin
+# rate-mirrors-bin
 networkmanager-vpnc
 networkmanager-pptp
 networkmanager-l2tp
@@ -405,8 +404,8 @@ khelpcenter
 kmousetool
 konsole
 ksystemlog
-#kwallet-pam
-#kwalletmanager
+# kwallet-pam
+# kwalletmanager
 latte-dock
 lokalize
 markdownpart
@@ -441,18 +440,18 @@ qt5-quicktimeline
 qt5-remoteobjects
 qt5-virtualkeyboard
 
-# QT6 packages
-#qt6-shadertools
-#qt6-positioning
-#qt6-languageserver
-#qt6-virtualkeyboard
+## QT6 packages
+# qt6-shadertools
+# qt6-positioning
+# qt6-languageserver
+# qt6-virtualkeyboard
 
 
 ###############################################################
 ###                  ArkSys Packages Selection              ###
 ###############################################################
 
-### AUR (Arch User Respository)
+### AUR (no for pacman, need AUR helper: yay, paru, etc)
 # libpamac
 # libpamac-flatpak-plugin
 # pacseek-bin
@@ -462,8 +461,7 @@ qt5-virtualkeyboard
 # topgrade
 # yay-bin
 
-### Browser
-firefox
+####### CUI #######
 
 ## Complements
 gnome-keyring
@@ -509,24 +507,15 @@ appmenu-gtk-module
 appstream
 arandr
 archey3
-asciinema
-assimp
-bash
-bash-completion
-bat
-bat-extras
 boost
 cblas
 cifs-utils
-cmake
 cronie
 dbus-python
 dconf-editor
 dex
 downgrade
 duf
-eaglemode
-# edid-decode-git
 expac
 extra-cmake-modules
 file-roller
@@ -535,17 +524,12 @@ fuse3
 fuseiso
 gcc
 gettext
-git
-gnome-disk-utility
 gparted
 graphviz
 gtest
 gtk-doc
 gts
-# hardcode-fixer-git
 hddtemp
-htop
-hw-probe
 hwinfo
 inetutils
 intltool
@@ -557,28 +541,40 @@ libmtp
 lsb-release
 lshw
 lzop
-make
-meld
-meson
 mlocate
 netpbm
-ninja
 nmon
 node-gyp
-nodejs
-npm
-neovim
 oniguruma
-p7zip
 perl-xml-parser
 pkgstats
-playerctl
-polkit
 rhash
 s3fs-fuse
 semver
 sshfs
 sysprof
+
+### Terminal programs
+asciinema
+assimp
+bash
+bash-completion
+bat
+bat-extras
+cmake
+exa
+git
+make
+meson
+htop
+hw-probe
+ninja
+neovim
+nodejs
+npm
+p7zip
+polkit
+starship
 tree
 unace
 unrar
@@ -593,8 +589,18 @@ yad
 zenity
 zip
 
+####### GUI #######
+
+### Browser
+firefox
+
+### Editor
+# gnome-disk-utility
+
 ### Viewer
 appstream-glib
 flatseal
+eaglemode
+meld
 okular
 mpv
