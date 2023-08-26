@@ -21,10 +21,17 @@ eval "$(starship init bash)"
 # do not display neofetch at the start of every terminal session
 #neofetch
 
-# Backup
-#external_ssd="/run/media/d7/ssd-backup/"
-alias backup-ssd='rsync -aAXv --delete /0/ \$external_ssd && echo -e "External SSD backup done!"'
-alias test-backup='rsync -aAXv --delete --dry-run /0/ \$external_ssd && echo -e "External SSD backup test done!"'
+# Define your variable
+MY_VARIABLE="Hello, World!"
+
+# Define the alias using the variable
+alias greet="echo \$MY_VARIABLE"
+
+# Backup, change destination path
+#backup_dest="/run/media/d7/ssd-backup/"
+#alias backup="rsync -aAXv --delete --exclude='.Trash-1000/' /0/ \$backup_dest && echo -e '\nExternal SSD backup done!'"
+#alias test-backup="rsync -aAXv --delete --dry-run --exclude='.Trash-1000/' /0/ \$backup_dest && echo -e '\nExternal SSD backup test done!'"
+#alias test-backup-output="rsync -aAXv --delete --dry-run --exclude='.Trash-1000/' /0/ \$backup_dest > rsync_output.txt 2>&1"
 
 export HISTCONTROL=ignoreboth:erasedups
 
