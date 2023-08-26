@@ -163,23 +163,23 @@ mkinitcpio-openswap
 # squashfs-tools
 
 ## dependencies not needed
-# mkinitcpio-firmware
 # aic94xx-firmware
 # ast-firmware
-# wd719x-firmware
-# upd72020x-fw
 # boost-libs
 # gtk-update-icon-cache
+# icu
 # kconfig
 # kcoreaddons
 # ki18n
 # kiconthemes
 # kio
 # kpmcore
-# icu
 # libpwquality
+# mkinitcpio-firmware
 # polkit-qt5
 # solid
+# upd72020x-fw
+# wd719x-firmware
 # xmlto
 # yaml-cpp
 
@@ -525,6 +525,7 @@ dconf-editor
 dex
 downgrade
 duf
+eaglemode
 # edid-decode-git
 expac
 extra-cmake-modules
