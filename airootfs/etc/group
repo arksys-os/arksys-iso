@@ -1,5 +1,5 @@
 root:x:0:root
-sys:x:3:bin,ark
+sys:x:3:bin,arklive
 network:x:90:arklive
 power:x:98:arklive
 adm:x:999:arklive
@@ -13,4 +13,4 @@ audio:x:995:arklive
 users:x:985:arklive
 nopasswdlogin:x:966:arklive
 autologin:x:967:arklive
-ark:x:1000:
+arklive:x:1000:
