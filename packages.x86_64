@@ -145,6 +145,7 @@ update-grub
 ###############################################################
 
 ### CALAMARES
+# calamares
 arksys-calamares
 arksys-calamares-config
 # arksys-welcome
@@ -469,7 +470,6 @@ ocs-url
 systemd-kcm
 systemdgenie
 xsettingsd
-# yakuake
 
 ### Fonts
 adobe-source-sans-pro-fonts
@@ -509,11 +509,9 @@ archey3
 boost
 cblas
 cifs-utils
-cronie
 dbus-python
 dconf-editor
 dex
-downgrade
 duf
 expac
 extra-cmake-modules
@@ -529,7 +527,6 @@ gtest
 gtk-doc
 gts
 hddtemp
-hwinfo
 inetutils
 intltool
 inxi
@@ -543,7 +540,6 @@ lzop
 mlocate
 netpbm
 nmon
-node-gyp
 oniguruma
 perl-xml-parser
 pkgstats
@@ -561,8 +557,11 @@ bash-completion
 bat
 bat-extras
 cmake
+cronie
+downgrade
 exa
 git
+hwinfo
 make
 meson
 htop
@@ -570,8 +569,8 @@ hw-probe
 ninja
 neovim
 nodejs
+node-gyp
 npm
-p7zip
 polkit
 starship
 tree
@@ -586,6 +585,7 @@ wmctrl
 xdo
 yad
 zenity
+p7zip
 zip
 
 ####### GUI #######
@@ -603,3 +603,5 @@ eaglemode
 meld
 okular
 mpv
+# yakuake
+
