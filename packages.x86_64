@@ -187,7 +187,6 @@ mkinitcpio-openswap
 ###############################################################
 
 ### Display manager (Xorg / Wayland)
-xorg-apps
 xorg-xinit
 xorg-server
 xorg-xrdb
@@ -331,6 +330,7 @@ plasma-browser-integration
 
 ### KDE Wayland
 # egl-wayland
+# kwayland
 # kwayland-server
 # kwayland-integration
 # plasma-wayland-session
@@ -392,8 +392,7 @@ signon-kwallet-extension
 ## KDE Utilities
 ark
 dolphin
-#dolphin-plugins
-kalendar
+# dolphin-plugins
 kate
 kcalc
 kdesdk-thumbnailers
