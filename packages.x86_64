@@ -2,143 +2,187 @@
 ###                   ARCHISO PACKAGES                      ###
 ###############################################################
 
-### archiso-by-default
+### System Setup and Maintenance
 archiso
-alsa-utils
-amd-ucode
 arch-install-scripts
 archinstall
-b43-fwcutter
 base
 base-devel
-bind
-brltty
-btrfs-progs
-clonezilla
-cloud-init
-crda
-darkhttpd
-ddrescue
-dhclient
-dhcpcd
-diffutils
-dmidecode
-dmraid
-dnsmasq
-dosfstools
-e2fsprogs
-edk2-shell
-efibootmgr
-ethtool
-exfatprogs
-f2fs-tools
-fatresize
-fd
-fsarchiver
-gnu-netcat
-gpart
-gpm
-gptfdisk
-hdparm
-hyperv
-intel-ucode
-irssi
-iw
-iwd
-jfsutils
-kinit
-kitty-terminfo
-less
-libfido2
-libusb-compat
-linux
-linux-headers
-linux-atm
-linux-firmware
-linux-firmware-marvell
-lsscsi
-lvm2
-lynx
-man-db
-man-pages
-mc
-mdadm
 memtest86+
 memtest86+-efi
+
+### Initialization and Boot
 mkinitcpio
 mkinitcpio-archiso
 mkinitcpio-nfs-utils
-modemmanager
-mtools
-nano
-nbd
-ndisc6
-nfs-utils
-nilfs-utils
-nmap
-ntfs-3g
-nvme-cli
-openconnect
-open-iscsi
-openssh
-openvpn
-partclone
-parted
-partimage
-pcsclite
-ppp
-pptpclient
-pv
-# refind
-reflector
-rp-pppoe
-rsync
-screen
-sdparm
-sg3_utils
-smartmontools
-sof-firmware
-squashfs-tools
-sudo
 syslinux
-systemd-resolvconf
-tcpdump
-terminus-font
-testdisk
-tldr
-tmux
-tpm2-tss
-udftools
-usb_modeswitch
-usbmuxd
-usbutils
-vpnc
-wireguard-tools
-wireless-regdb
-wireless_tools
-wpa_supplicant
-wvdial
-xdotool
-xfsprogs
-xl2tpd
 
-### archiso-extra
-exa
-ntp
-most
-wget
-dialog
-repoctl
-haveged
-dnsutils
-logrotate
-
-### Grub Stuff
+### Boot-loader (grub)
 grub
 os-prober
 grub-tools
 update-grub
+# refind
+kinit
 
+### Kernel: Linux
+linux
+linux-headers
+linux-atm
+
+### Firmware
+amd-ucode
+intel-ucode
+dmraid
+edk2-shell
+efibootmgr
+linux-firmware
+linux-firmware-marvell
+sof-firmware
+
+### Drivers
+ntfs-3g
+
+### Fonts
+terminus-font
+
+###### Terminal Commands ######
+
+### Audio
+alsa-utils
+
+### Authentication and Security
+libfido2
+
+### Command execution management
+sudo
+
+### Data transfer and Synchronization
+partclone
+rsync
+
+### Disk Utilities
+btrfs-progs
+ddrescue
+diffutils
+e2fsprogs
+mdadm
+nvme-cli
+parted
+partimage
+sdparm
+sg3_utils
+smartmontools
+testdisk
+
+### Documentation
+man-db
+man-pages
+tldr
+
+### File Management
+exa
+mc
+nano
+
+### Hardware Utilities
+dmidecode
+hdparm
+pcsclite
+pv
+
+### Networking
+bind
+brltty
+clonezilla
+cloud-init
+crda
+dhclient
+dhcpcd
+dnsmasq
+dosfstools
+ethtool
+gnu-netcat
+hyperv
+irssi
+iw
+iwd
+nmap
+open-iscsi
+openssh
+openvpn
+rp-pppoe
+tcpdump
+modemmanager
+nbd
+ndisc6
+nfs-utils
+systemd-resolvconf
+wvdial
+
+#### VPN and Network Security
+openconnect
+ppp
+pptpclient
+vpnc
+wireguard-tools
+xl2tpd
+
+#### Wireless Networking
+b43-fwcutter
+wireless-regdb
+wireless_tools
+wpa_supplicant
+
+#### Web Servers
+darkhttpd
+
+### System Utilities
+dialog
+dnsutils
+exfatprogs
+f2fs-tools
+fatresize
+fsarchiver
+gpart
+gptfdisk
+haveged
+jfsutils
+logrotate
+lsscsi
+lvm2
+most
+mtools
+nilfs-utils
+ntp
+reflector
+repoctl
+squashfs-tools
+udftools
+wget
+xfsprogs
+
+### Terminal utilities
+fd
+kitty-terminfo
+less
+screen
+tmux
+
+#### Text-based browser
+lynx
+
+#### Trusted Platform Module
+tpm2-tss
+
+### USB Utilities
+libusb-compat
+usb_modeswitch
+usbmuxd
+usbutils
+
+#### User Interface Automation
+xdotool
 
 ###############################################################
 ###                  LINUX DISTRO PACKAGES                  ###
@@ -340,7 +384,6 @@ plasma-browser-integration
 # xorg-xwayland
 
 ### KDE Essentials
-# packagekit-qt5
 bluedevil
 breeze
 drkonqi
@@ -382,7 +425,6 @@ kdenlive
 kdeplasma-addons
 spectacle
 svgpart
-# kwin-scripts-forceblur
 
 ## KDE Networking
 kdeconnect
@@ -390,7 +432,7 @@ kio-zeroconf
 kdenetwork-filesharing
 signon-kwallet-extension
 
-## KDE Utilities
+## KDE Utilities (GUI)
 ark
 dolphin
 # dolphin-plugins
@@ -406,9 +448,8 @@ konsole
 ksystemlog
 # kwallet-pam
 # kwalletmanager
-latte-dock
+# latte-dock
 lokalize
-markdownpart
 
 ## QT5 packages
 qt5-3d
@@ -535,7 +576,6 @@ laptop-detect
 lhasa
 libmtp
 lsb-release
-lshw
 lzop
 mlocate
 netpbm
@@ -595,9 +635,11 @@ firefox
 
 ### Editor
 # gnome-disk-utility
+# partitionmanager
 
-### Viewer
+### Player / Viewer
 appstream-glib
+audacious
 flatseal
 eaglemode
 meld
