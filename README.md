@@ -1,5 +1,5 @@
 > Arksys login:
-- user: ark
+- user: arklive
 - password: 123
 
 # Steps to build Arksys ISO
